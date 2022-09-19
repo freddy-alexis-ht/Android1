@@ -3,8 +3,13 @@
 [1. INITIAL STEPS](#1-initial-steps)<br>  
 - [1.1 Using physical device for tests](#11-using-physical-device-for-tests) //
 [1.2 Using Cellphone emulator for tests](#12-using-cellphone-emulator-for-tests) //
-[1.3 Project creation](#13-project-creation) //
+  [1.3 Project creation](#13-project-creation) //
 
+[2. WORKING IN THE PROJECT](#2-working-in-the-project)<br>
+- [2.1 Loading page](#21-loading-page) //
+[2.2 Loading page animation](#22-loading-page-animation)
+[2.3 Loading page duration](#23-loading-page-duration)
+[2.4 Run the app](#24-run-the-app)
 
 ---
 ---
@@ -213,4 +218,306 @@ Now, it does appear:
 ![markdown-preview-1](images/markdown-preview-1.png)
 
 - Reboot, now the Markdown preview appears.
+
+---
+---
+
+## 2. WORKING IN THE PROJECT
+[Index](#index)
+
+### 2.1 Loading page
+
+Used resources:
+- Flaticon: <https://www.flaticon.es/>
+
+This is the way the project starts:
+
+![pry-start](images/pry-start.png)
+
+
+**File: activity_main.xml**
+
+Replace the layout-type from:  
+`<androidx.constraintlayout.widget.ConstraintLayout ...`  
+..to:  
+`<RelativeLayout>`  
+
+`LinearLayoutCompat` configuration will apply to all views inside it.  
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<!--background="#fff": white-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".MainActivity">
+
+    <!-- match_parent: same size as the parent -->
+    <!-- gravity=center: views added will be centered -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
+~~~
+
+**Loading icon**
+
+Icons can be found here:  
+- Flaticon: <https://www.flaticon.es/>
+
+Project materials are given with the course, I'll use them as I need them.  
+- To avoid problems, the image name should have only letters, not numbers.
+- Copy file: carga.png
+- Folder: res:drawable -> right click -> Open in explorer -> paste the image
+
+![carga](app/src/main/res/drawable/carga.png)
+
+**File: activity_main.xml**
+
+Inside 'LinearLayoutCompat': 
+- Add a view for the image.
+- Add a view for the text.
+
+To be organized, for the text go to:
+- File: res:drawable:strings.xml
+~~~
+<resources>
+    <string name="app_name">Wallpapers</string>
+    <string name="developer">Developed by: Freddy Huaman</string>
+</resources>
+~~~  
+
+- This is 'activity_main.xml'
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<!--background="#fff": white-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".MainActivity">
+
+    <!-- match_parent: same size as the parent -->
+    <!-- gravity=center: views added will be centered -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Loading image -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:src="@drawable/carga" />
+
+        <!-- Text below the loading image -->
+        <!-- wrap_content: the height depends on its content-->
+        <TextView
+            android:id="@+id/app_name"
+            android:text="@string/app_name"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:layout_marginTop="20sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/developer"
+            android:text="@string/developer"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginTop="10sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
+~~~
+
+![loading-page-1](images/loading-page-1.png)
+
+---
+
+### 2.2 Loading page animation
+[Index](#index)
+
+Used resources:
+- Lottie (animation): <https://lottiefiles.com/>
+
+**Dependency for animation**
+Go to `build.gradle` and in 'dependencies' add:  
+`implementation 'com.airbnb.android:lottie:4.2.1'` -> Sync now  
+
+We can download an animation from: <https://lottiefiles.com/>  
+- Find a free one -> Download: Lottie JSON  
+
+The course already give us one, it is in: Animaciones/carga_animacion.json
+
+Go to the project:  
+- Folder: res -> right click -> Open in explorer
+- Out of 'res' -> create the folder 'assets'
+- Paste the file: carga_animacion.json
+
+**File: activity_main.xml**
+
+~~~
+	<!-- Animation -->
+	<!-- assets: folder that must be created -->
+	<com.airbnb.lottie.LottieAnimationView
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:layout_marginTop="10dp"
+		android:layout_gravity="center"
+		app:lottie_imageAssetsFolder="assets"
+		app:lottie_fileName="carga_animacion.json"
+		app:lottie_loop="true"
+		app:lottie_autoPlay="true" />
+~~~
+
+**Names modification** 
+
+- Change the name of 'MainActivity.java' to 'Carga.java'  
+- Change the name of 'main_activity.xml.java' to 'carga.java'  
+
+Check 'carga.xml':  
+- The last line of 'RelativeLayout' changed to point to Carga.java.  
+`tools:context=".Carga">`
+
+Check 'AndroidManifest.xml':  
+- It also points to Carga.java
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sunday.wallpapers">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Wallpapers">
+        <!-- It points to Carga.java -->
+        <activity android:name=".Carga">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+~~~
+
+---
+
+### 2.3 Loading page duration
+[Index](#index)
+
+**Carga.java**
+
+The loading page will be there for 3 seconds, after that some code will be executed.  
+Notice that Lambda-expression can be used.
+
+~~~
+package com.sunday.wallpapers;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.os.Handler;
+
+public class Carga extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.carga);
+
+        // loading page duration
+        final int DURATION = 3000; // 3 seconds
+        // executes code in a specified time
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Code to be executed passed DURATION (3 seconds)
+            }
+        }, DURATION);
+    }
+}
+~~~
+
+Using Lambda:
+
+~~~
+public class Carga extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.carga);
+
+        final int DURATION = 3000; // 3 seconds
+
+        new Handler().postDelayed(() -> {
+            // Code to be executed passed DURATION (3 seconds)
+        }, DURATION);
+    }
+}
+~~~
+
+Once the 3 seconds have finished, the loading-page should pass to other activity (view).  
+- In 'com.sunday.wallpapers' (the same place where Carga.java is)
+- New empty activity -> Name: MainActivity (all by default)
+
+**Carga.java - inside run() method**
+
+- finish(): If the return-arrow-icon is click it won't go back, it'll finish the app.  
+
+~~~
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.carga);
+
+        // loading page duration
+        final int DURATION = 3000; // 3 seconds
+        // executes code in a specified time
+        new Handler().postDelayed(() -> {
+            // Code to be executed passed DURATION (3 seconds)
+            // arg-1: context: class where the call is made
+            // arg-2: destiny class
+            Intent intent = new Intent(Carga.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }, DURATION);
+    }
+~~~
+
+---
+
+### 2.4 Run the app
+[Index](#index)
+
+Run the app, it works.  
+When clicking return-arrow-icon, it could be said that the activity carga.xml is destroyed.
+
+![app-running-1](images/app-running-1.png)
 
