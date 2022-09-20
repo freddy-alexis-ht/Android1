@@ -5,7 +5,7 @@
 [1.2 Using Cellphone emulator for tests](#12-using-cellphone-emulator-for-tests) //
 [1.3 Project creation](#13-project-creation) //
 
-[2. WORKING IN THE PROJECT](#2-working-in-the-project)<br>
+[2. SETTING UP THE BASES OF THE PROJECT](#2-setting-up-the-bases-of-the-project)<br>
 - [2.1 Loading page](#21-loading-page) //
 [2.2 Loading page animation](#22-loading-page-animation) //
 [2.3 Loading page duration](#23-loading-page-duration) //
@@ -92,7 +92,7 @@ Install this app in the mobile device:
 
 **Project materials**  
 
-![project-materials](images/project-materials.png)
+![project-materials](images/1-initial/project-materials.png)
 
 **Android Studio installation**  
 
@@ -121,7 +121,7 @@ Cellphone
 Laptop
 - Vysor detects our device.
 
-![vysor-before](images/vysor-before.png)
+![vysor-before](images/1-initial/vysor-before.png)
 
 Android Studio
 - New project -> empty activity -> random names for the project.
@@ -133,28 +133,28 @@ Android Studio
 >  - [Google USB driver page](https://developer.android.com/studio/run/win-usb)
 >  - [USB driver from Original Equipment Manufacturer (OEM)](https://developer.android.com/studio/run/oem-usb#Drivers)
 
-![ide-cell](images/ide-cell.png)
+![ide-cell](images/1-initial/ide-cell.png)
 
 Laptop
 - When clicking on 'play' icon in Vysor interface, our cellphone screen should appear in the laptop, in real-time.
 - It said it requires extra configuration in the cellphone:
 
-![cell-config](images/cell-config.png)
+![cell-config](images/1-initial/cell-config.png)
   
 **Running the app in Android Studio**
 
 After correctly configuring the cellphone, run the app.  
 A message will appear in the cellphone with a countdown from 10 to 0. It requires permission to install the app.  
 
-![linked](images/linked.png)
+![linked](images/1-initial/linked.png)
 
 If time finishes:
 
-![cell-not-accept](images/cell-not-accept.png)
+![cell-not-accept](images/1-initial/cell-not-accept.png)
 
 If 'Retry' is clicked:
 
-![retry](images/retry.png)
+![retry](images/1-initial/retry.png)
 
 ---
 
@@ -166,30 +166,30 @@ Android Studio
 - New project -> empty activity -> random names for the project.
 - Click in 'AVD Manager' icon. 
 
-![avd-manager](images/avd-manager.png)
+![avd-manager](images/1-initial/avd-manager.png)
 
 - Create virtual device:
 	- Devices that have the 'PlayStore' logo mean that they can access to Google services like: start session with a Google account, access to PlayStore, ...
 	- Click in 'Pixel 4' (it has the PlayStore logo) -> Next
 - It shows API Levels:
 
-![api-level](images/api-level.png)
+![api-level](images/1-initial/api-level.png)
 
 - Select 'R' (download if necessary) -> Next -> AVD Name: Pixel 4 API 30 (default) -> Finish
 
 To start the emulator, click in the 'play' icon (it might take a few minutes).
 
-![virtual-devices](images/virtual-devices.png)
+![virtual-devices](images/1-initial/virtual-devices.png)
 
 It'll start the setup -> Click in finish setup -> Start -> Don't copy -> valid email and password -> Next -> 2-Step verification -> Cell message -> More -> Accept.  
 
 To run the app, the options in red should be selected. Then, click in Play.
 
-![emulator](images/emulator.png)
+![emulator](images/1-initial/emulator.png)
 
 App running in the emulator.
 
-![emulator-2](images/emulator-2.png)
+![emulator-2](images/1-initial/emulator-2.png)
 
 ---
 
@@ -205,7 +205,7 @@ The project will be created in: D:\01-EVE\CURSOS\19-Android1\pry-android1 .. bec
 	- Language: Java
 	- Minimum SDK: API 21: Android 5.0 (Lollipop)
 
-![wallpaper-1](images/wallpaper-1.png)
+![wallpaper-1](images/1-initial/wallpaper-1.png)
 
 Note:
 - Having installed 'Markdown' plugin in Android Studio, the preview-for-Markdown doesn't appear.
@@ -213,20 +213,20 @@ Note:
 
 There is a solution, but I can't apply it. The option indicated in that link doesn't appear to me. So, I'm updating IDE version.
 
-![update-ide](images/update-ide.png)
+![update-ide](images/1-initial/update-ide.png)
 
 Now, it does appear:
 - Help -> Find Action -> type: Choose Boot Java Runtime for the IDE: -> Enter.
 - Select a runtime with JCEF (Java Chromium Embedded Framework) in its title (like the default) -> Ok.
 
-![markdown-preview-1](images/markdown-preview-1.png)
+![markdown-preview-1](images/1-initial/markdown-preview-1.png)
 
 - Reboot, now the Markdown preview appears.
 
 ---
 ---
 
-## 2. WORKING IN THE PROJECT
+## 2. SETTING UP THE BASES OF THE PROJECT
 [Index](#index)
 
 ### 2.1 Loading page
@@ -236,7 +236,7 @@ Used resources:
 
 This is the way the project starts:
 
-![pry-start](images/pry-start.png)
+![pry-start](images/2-setup/pry-start.png)
 
 
 **File: activity_main.xml**
@@ -354,7 +354,7 @@ To be organized, for the text go to:
 </RelativeLayout>
 ~~~
 
-![loading-page-1](images/loading-page-1.png)
+![loading-page-1](images/2-setup/loading-page-1.png)
 
 ---
 
@@ -365,6 +365,7 @@ Used resources:
 - Lottie (animation): <https://lottiefiles.com/>
 
 **Dependency for animation**
+
 Go to `build.gradle` and in 'dependencies' add:  
 `implementation 'com.airbnb.android:lottie:4.2.1'` -> Sync now  
 
@@ -523,7 +524,7 @@ Once the 3 seconds have finished, the loading-page should pass to other activity
 Run the app, it works.  
 When clicking return-arrow-icon, it could be said that the activity carga.xml is destroyed.
 
-![app-running-1](images/app-running-1.png)
+![app-running-1](images/2-setup/app-running-1.png)
 
 ---
 
@@ -621,7 +622,7 @@ public class Carga extends AppCompatActivity {
 
 Open the emulator -> search for the app: Wallpapers -> double click.
 
-![app-running-2](images/app-running-2.png)
+![app-running-2](images/2-setup/app-running-2.png)
 
 ---
 
@@ -639,27 +640,27 @@ Open the emulator -> search for the app: Wallpapers -> double click.
   - SHA-1 Certificate: View -> Tool windows -> Gradle -> click in its icon -> Write: gradle signingreport -> Enter
     - Copy the SHA-1 and paste it in the webpage.
 
-![firebase-1](images/firebase-1.png)
+![firebase-1](images/2-setup/firebase-1.png)
 
-![firebase-2](images/firebase-2.png)
+![firebase-2](images/2-setup/firebase-2.png)
 
 **Download the 'google-service.json'**
 
 Change the perspective of the project: Android -> Project
 - Copy the .json -> Right click in 'app' -> paste -> OK
 
-![firebase-3](images/firebase-3.png)
+![firebase-3](images/2-setup/firebase-3.png)
 
 Change the 'pry-android...' to 'app'.  
 Change the perspective: Project -> Android
 
-![firebase-4](images/firebase-4.png)
+![firebase-4](images/2-setup/firebase-4.png)
 
 **Add Firebase SDK**
 
 Go back to Firebase -> Next -> Copy the code in the red-square.  
 
-![firebase-5](images/firebase-5.png)
+![firebase-5](images/2-setup/firebase-5.png)
 
 Open *'build.gradle' (Project)* .. before change:
 
@@ -720,7 +721,7 @@ task clean(type: Delete) {
 
 Go back to Firebase -> Open *'build.gradle' (Module)* .. before change:
 
-![firebase-6](images/firebase-6.png)
+![firebase-6](images/2-setup/firebase-6.png)
 
 ~~~
 plugins {
@@ -735,7 +736,7 @@ Click in 'Sync now'.
 We have already implemented Firebase in our project.
 Firebase webpage: Go to the Console.
 
-![firebase-7](images/firebase-7.png)
+![firebase-7](images/2-setup/firebase-7.png)
 
 ---
 
@@ -747,14 +748,14 @@ Tasks to do:
 - Manage permissions: Since Android 6 (Marshmallow), the developer should care about permissions in: Storage, Internet, Camera, and others.
 - Firebase tools: The app will use: Authentication, Firestore Database, Storage.
 
-![app-description-1](images/app-description-1.png)
+![app-description-1](images/2-setup/app-description-1.png)
 
 Libraries to use:
 - Picasso: Images. Load images depending on the category selected.
 - Lottie: Animation.
 - Merlin: Manage Internet connection.
 
-![app-description-2](images/app-description-2.png)
+![app-description-2](images/2-setup/app-description-2.png)
 
 Firebase:
 - Make easier developing web or mobile apps.
@@ -762,7 +763,7 @@ Firebase:
 - Firestore Database: No-Relational DB.
 - Storage: To store images directly to Firebase server.
 
-![app-description-3](images/app-description-3.png)
+![app-description-3](images/2-setup/app-description-3.png)
 
 ---
 
@@ -771,18 +772,18 @@ Firebase:
 
 **Admin**
 
-![role-admin](images/role-admin.png)
+![role-admin](images/2-setup/role-admin.png)
 
 **Client**
 
-![role-client](images/role-client.png)
+![role-client](images/2-setup/role-client.png)
 
 **Admin vs Client**
 
 In case the user has entered user&pass, the app will authenticate the user as admin.
 If the user just doesn't enter user&pass, the app will consider the user as a client, because they don't require user&pass.
 
-![role-admin-client](images/role-admin-client.png)
+![role-admin-client](images/2-setup/role-admin-client.png)
 
 
 
