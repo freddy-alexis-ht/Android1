@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "642648371110",
+    "project_id": "wallpapers-e4881",
+    "storage_bucket": "wallpapers-e4881.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642648371110:android:3964dd54f526a2d27ae967",
+        "android_client_info": {
+          "package_name": "com.sunday.wallpapers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642648371110-g38e2v3tvnh9e5ftmha161vries8q01j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sunday.wallpapers",
+            "certificate_hash": "3b9aa9a10f075c11c4c6bdc90739945c1471b9ec"
+          }
+        },
+        {
+          "client_id": "642648371110-sl04h668h6a5hs0cjnq4h768r4eanf6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqL6xMqkQ1AR38Yq7Z3OuW9d3W3Kvi_Ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642648371110-sl04h668h6a5hs0cjnq4h768r4eanf6a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
