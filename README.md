@@ -5,7 +5,7 @@
 [1.2 Using Cellphone emulator for tests](#12-using-cellphone-emulator-for-tests) //
 [1.3 Project creation](#13-project-creation) //
 
-[2. SETTING UP THE BASES OF THE PROJECT](#2-setting-up-the-bases-of-the-project)<br>
+[2. SETTING UP THE BASE OF THE PROJECT](#2-setting-up-the-base-of-the-project)<br>
 - [2.1 Loading page](#21-loading-page) //
 [2.2 Loading page animation](#22-loading-page-animation) //
 [2.3 Loading page duration](#23-loading-page-duration) //
@@ -14,6 +14,11 @@
 [2.6 Include Firebase to the project](#26-include-firebase-to-the-project) //
 [2.7 App description](#27-app-description) //
 [2.8 Roles: Client & Admin](#28-roles-client--admin) //
+
+[3 DESIGN AND DEVELOP THE BASE OF THE PROJECT](#3-design-and-develop-the-base-of-the-project)<br>
+- [3.1 Admin Activity (Part 1)](#31-admin-activity-part-1) //
+[3.2 Admin Activity (Part 2)](#32-admin-activity-part-2) //
+[3.3 Admin Fragments](#33-admin-fragments) //
 
 ---
 ---
@@ -92,7 +97,7 @@ Install this app in the mobile device:
 
 **Project materials**  
 
-![project-materials](images/1-initial/project-materials.png)
+![project-materials](images/01-initial/project-materials.png)
 
 **Android Studio installation**  
 
@@ -121,7 +126,7 @@ Cellphone
 Laptop
 - Vysor detects our device.
 
-![vysor-before](images/1-initial/vysor-before.png)
+![vysor-before](images/01-initial/vysor-before.png)
 
 Android Studio
 - New project -> empty activity -> random names for the project.
@@ -133,28 +138,28 @@ Android Studio
 >  - [Google USB driver page](https://developer.android.com/studio/run/win-usb)
 >  - [USB driver from Original Equipment Manufacturer (OEM)](https://developer.android.com/studio/run/oem-usb#Drivers)
 
-![ide-cell](images/1-initial/ide-cell.png)
+![ide-cell](images/01-initial/ide-cell.png)
 
 Laptop
 - When clicking on 'play' icon in Vysor interface, our cellphone screen should appear in the laptop, in real-time.
 - It said it requires extra configuration in the cellphone:
 
-![cell-config](images/1-initial/cell-config.png)
+![cell-config](images/01-initial/cell-config.png)
   
 **Running the app in Android Studio**
 
 After correctly configuring the cellphone, run the app.  
 A message will appear in the cellphone with a countdown from 10 to 0. It requires permission to install the app.  
 
-![linked](images/1-initial/linked.png)
+![linked](images/01-initial/linked.png)
 
 If time finishes:
 
-![cell-not-accept](images/1-initial/cell-not-accept.png)
+![cell-not-accept](images/01-initial/cell-not-accept.png)
 
 If 'Retry' is clicked:
 
-![retry](images/1-initial/retry.png)
+![retry](images/01-initial/retry.png)
 
 ---
 
@@ -166,30 +171,30 @@ Android Studio
 - New project -> empty activity -> random names for the project.
 - Click in 'AVD Manager' icon. 
 
-![avd-manager](images/1-initial/avd-manager.png)
+![avd-manager](images/01-initial/avd-manager.png)
 
 - Create virtual device:
 	- Devices that have the 'PlayStore' logo mean that they can access to Google services like: start session with a Google account, access to PlayStore, ...
 	- Click in 'Pixel 4' (it has the PlayStore logo) -> Next
 - It shows API Levels:
 
-![api-level](images/1-initial/api-level.png)
+![api-level](images/01-initial/api-level.png)
 
 - Select 'R' (download if necessary) -> Next -> AVD Name: Pixel 4 API 30 (default) -> Finish
 
 To start the emulator, click in the 'play' icon (it might take a few minutes).
 
-![virtual-devices](images/1-initial/virtual-devices.png)
+![virtual-devices](images/01-initial/virtual-devices.png)
 
 It'll start the setup -> Click in finish setup -> Start -> Don't copy -> valid email and password -> Next -> 2-Step verification -> Cell message -> More -> Accept.  
 
 To run the app, the options in red should be selected. Then, click in Play.
 
-![emulator](images/1-initial/emulator.png)
+![emulator](images/01-initial/emulator.png)
 
 App running in the emulator.
 
-![emulator-2](images/1-initial/emulator-2.png)
+![emulator-2](images/01-initial/emulator-2.png)
 
 ---
 
@@ -205,7 +210,7 @@ The project will be created in: D:\01-EVE\CURSOS\19-Android1\pry-android1 .. bec
 	- Language: Java
 	- Minimum SDK: API 21: Android 5.0 (Lollipop)
 
-![wallpaper-1](images/1-initial/wallpaper-1.png)
+![wallpaper-1](images/01-initial/wallpaper-1.png)
 
 Note:
 - Having installed 'Markdown' plugin in Android Studio, the preview-for-Markdown doesn't appear.
@@ -213,20 +218,20 @@ Note:
 
 There is a solution, but I can't apply it. The option indicated in that link doesn't appear to me. So, I'm updating IDE version.
 
-![update-ide](images/1-initial/update-ide.png)
+![update-ide](images/01-initial/update-ide.png)
 
 Now, it does appear:
 - Help -> Find Action -> type: Choose Boot Java Runtime for the IDE: -> Enter.
 - Select a runtime with JCEF (Java Chromium Embedded Framework) in its title (like the default) -> Ok.
 
-![markdown-preview-1](images/1-initial/markdown-preview-1.png)
+![markdown-preview-1](images/01-initial/markdown-preview-1.png)
 
 - Reboot, now the Markdown preview appears.
 
 ---
 ---
 
-## 2. SETTING UP THE BASES OF THE PROJECT
+## 2. SETTING UP THE BASE OF THE PROJECT
 [Index](#index)
 
 ### 2.1 Loading page
@@ -236,7 +241,7 @@ Used resources:
 
 This is the way the project starts:
 
-![pry-start](images/2-setup/pry-start.png)
+![pry-start](images/02-setup/pry-start.png)
 
 
 **File: activity_main.xml**
@@ -354,7 +359,7 @@ To be organized, for the text go to:
 </RelativeLayout>
 ~~~
 
-![loading-page-1](images/2-setup/loading-page-1.png)
+![loading-page-1](images/02-setup/loading-page-1.png)
 
 ---
 
@@ -524,7 +529,7 @@ Once the 3 seconds have finished, the loading-page should pass to other activity
 Run the app, it works.  
 When clicking return-arrow-icon, it could be said that the activity carga.xml is destroyed.
 
-![app-running-1](images/2-setup/app-running-1.png)
+![app-running-1](images/02-setup/app-running-1.png)
 
 ---
 
@@ -622,7 +627,7 @@ public class Carga extends AppCompatActivity {
 
 Open the emulator -> search for the app: Wallpapers -> double click.
 
-![app-running-2](images/2-setup/app-running-2.png)
+![app-running-2](images/02-setup/app-running-2.png)
 
 ---
 
@@ -640,27 +645,27 @@ Open the emulator -> search for the app: Wallpapers -> double click.
   - SHA-1 Certificate: View -> Tool windows -> Gradle -> click in its icon -> Write: gradle signingreport -> Enter
     - Copy the SHA-1 and paste it in the webpage.
 
-![firebase-1](images/2-setup/firebase-1.png)
+![firebase-1](images/02-setup/firebase-1.png)
 
-![firebase-2](images/2-setup/firebase-2.png)
+![firebase-2](images/02-setup/firebase-2.png)
 
 **Download the 'google-service.json'**
 
 Change the perspective of the project: Android -> Project
 - Copy the .json -> Right click in 'app' -> paste -> OK
 
-![firebase-3](images/2-setup/firebase-3.png)
+![firebase-3](images/02-setup/firebase-3.png)
 
 Change the 'pry-android...' to 'app'.  
 Change the perspective: Project -> Android
 
-![firebase-4](images/2-setup/firebase-4.png)
+![firebase-4](images/02-setup/firebase-4.png)
 
 **Add Firebase SDK**
 
 Go back to Firebase -> Next -> Copy the code in the red-square.  
 
-![firebase-5](images/2-setup/firebase-5.png)
+![firebase-5](images/02-setup/firebase-5.png)
 
 Open *'build.gradle' (Project)* .. before change:
 
@@ -721,7 +726,7 @@ task clean(type: Delete) {
 
 Go back to Firebase -> Open *'build.gradle' (Module)* .. before change:
 
-![firebase-6](images/2-setup/firebase-6.png)
+![firebase-6](images/02-setup/firebase-6.png)
 
 ~~~
 plugins {
@@ -736,7 +741,7 @@ Click in 'Sync now'.
 We have already implemented Firebase in our project.
 Firebase webpage: Go to the Console.
 
-![firebase-7](images/2-setup/firebase-7.png)
+![firebase-7](images/02-setup/firebase-7.png)
 
 ---
 
@@ -748,14 +753,14 @@ Tasks to do:
 - Manage permissions: Since Android 6 (Marshmallow), the developer should care about permissions in: Storage, Internet, Camera, and others.
 - Firebase tools: The app will use: Authentication, Firestore Database, Storage.
 
-![app-description-1](images/2-setup/app-description-1.png)
+![app-description-1](images/02-setup/app-description-1.png)
 
 Libraries to use:
 - Picasso: Images. Load images depending on the category selected.
 - Lottie: Animation.
 - Merlin: Manage Internet connection.
 
-![app-description-2](images/2-setup/app-description-2.png)
+![app-description-2](images/02-setup/app-description-2.png)
 
 Firebase:
 - Make easier developing web or mobile apps.
@@ -763,7 +768,7 @@ Firebase:
 - Firestore Database: No-Relational DB.
 - Storage: To store images directly to Firebase server.
 
-![app-description-3](images/2-setup/app-description-3.png)
+![app-description-3](images/02-setup/app-description-3.png)
 
 ---
 
@@ -772,33 +777,514 @@ Firebase:
 
 **Admin**
 
-![role-admin](images/2-setup/role-admin.png)
+![role-admin](images/02-setup/role-admin.png)
 
 **Client**
 
-![role-client](images/2-setup/role-client.png)
+![role-client](images/02-setup/role-client.png)
 
 **Admin vs Client**
 
 In case the user has entered user&pass, the app will authenticate the user as admin.
 If the user just doesn't enter user&pass, the app will consider the user as a client, because they don't require user&pass.
 
-![role-admin-client](images/2-setup/role-admin-client.png)
+![role-admin-client](images/02-setup/role-admin-client.png)
 
+---
+---
 
+## 3. DESIGN AND DEVELOP THE BASE OF THE PROJECT
+[Index](#index)
 
+### 3.1 Admin Activity (Part 1)
 
+As mentioned before, when entering the right admin user&pass, the loading-activity will go to the admin-activity.
 
+**res:values:colors.xml**  
 
+By default we have this:
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
+~~~
 
+Add the following:
+~~~
+    <color name="colorPrimary">#FE9A2E</color>
+    <color name="colorPrimaryDark">#FA5858</color>
+    <color name="colorAccent">#FE9A2E</color>
+~~~
 
+**styles.xml creation**  
 
+- res:values -> right click -> New -> Values Resource File -> File name: styles -> OK.
+- The code is given in the course.
 
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
+~~~
 
+**manifest/AndroidManifest.xml**
 
+Replace the line:  
+`android:theme="@style/Theme.Wallpapers">`  
+with:  
+`android:theme="@style/AppTheme">`
 
+---
 
+***a) MENU***
+
+![menu-1](images/03-bases/menu-1.png)
+
+**build.gradle (module): Navigation Drawer**
+
+Add the dependency: `implementation 'com.google.android.material:material:1.6.1'`  
+In my case, I had the v.1.4.0. I replace it -> Sync now.  
+The 'navigation-drawer' is the left panel that displays and hides the menu.
+
+**res**
+
+- Right click in 'res' -> New -> Android Resource Directory
+- A window will open -> Directory name: menu -> Resource type: menu -> OK
+- A folder 'menu' will appear.
+
+![res-menu](images/03-bases/res-menu.png)
+
+The menu will have 5 options: Inicio, Perfil, Registrar, Listar Administradores, Cerrar sesión.  
+
+- Folder 'menu' -> New -> Menu resource file -> File Name: menu_admin -> 'menu_admin.xml' will be created.
+
+**res:values:strings.xml**
+
+Create the strings to be used in the menu-items.
+
+~~~
+<resources>
+    <!-- loading page -->
+    <string name="app_name">Wallpapers</string>
+    <string name="developer">Developed by: Freddy Huaman</string>
+
+    <!-- menu items -->
+    <string name="InicioAdmin">Inicio</string>
+    <string name="PerfilAdmin">Perfil</string>
+    <string name="RegistrarAdmin">Registrar</string>
+    <string name="ListarAdmin">Listar Administradores</string>
+    <string name="SalirAdmin">Cerrar sesión</string>
+
+</resources>
+~~~
+
+**menu_admin.xml**
+
+- 'navigation_view' .. to indicate we'll use the lateral slider.
+- To use icons: res:drawable -> right click -> New -> Image Asset.
+  - Window 'Asset Studio' -> Icon Type: Action Bar and Tab Icons
+  - Asset Type: Clip Art
+  - Click in 'Clip Art' -> write: 1 -> select icon 'looks 1' -> OK
+  - Name: uno_ico -> Next -> Finish
+- Do the same for icons: 2, 3, 4, 5.
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <!-- menu group -->
+    <group android:checkableBehavior="single">
+        <!-- menu items-->
+        <!-- Option: Inicio -->
+        <item android:id="@+id/InicioAdmin"
+            android:title="@string/InicioAdmin"
+            android:icon="@drawable/uno_ico"/>
+        <!-- Option: Perfil -->
+        <item android:id="@+id/PerfilAdmin"
+            android:title="@string/PerfilAdmin"
+            android:icon="@drawable/dos_ico"/>
+        <!-- Option: Registrar -->
+        <item android:id="@+id/RegistrarAdmin"
+            android:title="@string/RegistrarAdmin"
+            android:icon="@drawable/tres_ico"/>
+        <!-- Option: Listar Administradores -->
+        <item android:id="@+id/ListarAdmin"
+            android:title="@string/ListarAdmin"
+            android:icon="@drawable/cuatro_ico"/>
+        <!-- Option: Cerrar sesión -->
+        <item android:id="@+id/SalirAdmin"
+            android:title="@string/SalirAdmin"
+            android:icon="@drawable/cinco_ico"/>
+    </group>
+</menu>
+~~~
+
+---
+
+***b) HEADER***
+
+![menu-2](images/03-bases/menu-2.png)
+
+- res:layout -> New -> Layout Resource File
+  - File name: header -> OK
+
+- Replace the 'ConstraintLayout' for 'LinearLayoutCompat'.
+- This layout will contain: one image and two texts.  
+
+- The image is: Materiales-del-proyecto/encabezado.png -> copy
+- drawable -> Open in explorer -> paste.  
+
+- The texts are already in 'res:values:strings.xml'.
+
+**header.xml**
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:gravity="bottom"
+    android:padding="15dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:orientation="vertical">
+    
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/encabezado"/>
+
+    <TextView
+        android:text="@string/app_name"
+        android:textColor="#000"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="@string/developer"
+        android:textColor="#000"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+~~~
+
+---
+
+### 3.2 Admin Activity (Part 2)
+[Index](#index)
+
+- Change name: MainActivity.java -> MainActivityAdmin.java
+- Change name: activity_main.xml -> activity_main_admin.xml
+  - Check the .xml code, it should be now:
+  - `tools:context=".MainActivityAdmin">`
+  - Ctrl+Click in it should take us to the .java file.
+
+**build.gradle (module)**
+
+- Add the dependency: `implementation "androidx.drawerlayout:drawerlayout:1.0.0"`  
+- 'Build' tab -> Clean project.
+
+**activity_main_admin.xml**
+
+- Replace 'ConstraintLayout' for 'DraweLayout'.
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fitsSystemWindows: For the Navigation Drawer doesn't hide the status bar -->
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_admin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#fff"
+    tools:context=".MainActivityAdmin"
+    tools:openDrawer="start">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Behind the drawable (menu) -->
+        <!-- ActionBar: It'll get dark when the drawable is open -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_admin"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container_admin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!-- drawable -->
+    <!-- app:headerLayout: adds the header -->
+    <!-- app:menu: adds the menu -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/menu_admin"
+        android:background="#fff"
+        app:itemTextColor="#000" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
+~~~
+
+![menu-3](images/03-bases/menu-3.png)
+
+**res:values:strings.xml**
+
+Add this:
+~~~
+    <!-- navigation drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+~~~
+
+**MainActivityAdmin.java**
+
+So we can click on the menu options, the class should implement this:  
+`NavigationView.OnNavigationItemSelectedListener`
+
+Implement this method:  
+~~~
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
+~~~
+
+The code is:
+
+~~~
+public class MainActivityAdmin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    /* ADDED */
+    DrawerLayout drawerLayout; // declaration
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_admin);
+
+        /* ADDED */
+        // androidx.appcompat.widget.Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_admin);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout_admin);
+
+        NavigationView navigationView = findViewById(R.id.nav_view_admin);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // icon colors by default are grey
+        // null, so the icons have their real color
+        navigationView.setItemIconTintList(null);
+
+        // this: refers to this activity
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    /* ADDED */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
+}
+~~~
+
+### 3.3 Admin Fragments
+[Index](#index)
+
+**Fragments creation**
+
+- java: com.sunday.wallpapers: right click -> New Package -> Name: AdminFragments
+- Each menu-item will be a fragment:
+  - Inicio / Perfil / Registrar / Listar Administradores
+
+Right click in the new package: New Fragment -> Fragment (blank) -> Fragment Name: InicioAdmin   
+- Do the same for: PerfilAdmin, RegistrarAdmin, ListarAdmin  
+
+**Linking menu-items with fragments**
+
+- menu: menu_admin.xml
+- In this file we have the menu and menu-items with their id's, texts and icons.  
+
+- MainActivityAdmin.java
+- It implemented onNavigationItemSelectedListener.
+- So, working in the method: onNavigationItemSelected()
+
+- Depending on the menu-item selected, the respective fragment will be displayed.
+- Whichever fragment selected it will be displayed in:
+  - activity_main_admin.xml -> <FrameLayout.. -> id: fragment_container_admin
+
+~~~
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.InicioAdmin:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin,
+                        new InicioAdmin()).commit();
+                break;
+            case R.id.PerfilAdmin:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin,
+                        new PerfilAdmin()).commit();
+                break;
+            case R.id.RegistrarAdmin:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin,
+                        new RegistrarAdmin()).commit();
+                break;
+            case R.id.ListarAdmin:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin,
+                        new ListarAdmin()).commit();
+                break;
+            case R.id.SalirAdmin:
+                Toast.makeText(this, "Cerraste sesión", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return false;
+    }
+~~~
+
+![frame-layout](images/03-bases/frame-layout.png)
+
+**Default fragment**
+
+- Continuing in MainActivityAdmin.java -> at the end of onCreate() add:
+
+~~~
+    // default fragment
+    if (savedInstanceState == null) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_admin,
+                new InicioAdmin()).commit();
+        navigationView.setCheckedItem(R.id.InicioAdmin);
+    }
+~~~ 
+
+- Also, after 'switch' in onNavigationItemSelected():
+
+~~~
+    drawerLayout.closeDrawer(GravityCompat.START);
+    return true;
+~~~
+
+**In AndroidManifest.xml**
+
+- There is the 'activity' related to MainActivityAdmin.java
+- Add the line: 'android:theme'
+~~~
+    <activity
+        android:name=".MainActivityAdmin"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:exported="false">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+    </activity>
+~~~
+
+**Add text to each fragment, for tests**
+
+These fragments have a <TextView> in it add:  
+
+- fragment_inicio_admin.xml: 
+~~~
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="INICIO"
+        android:gravity="center"
+        android:textSize="25sp"/>
+~~~
+
+The other fragments change in the text (this is only for tests):
+- fragment_perfil_admin.xml: text: PERFIL
+- fragment_registrar_admin.xml: text: REGISTRO
+- fragment_listar_admin.xml: text: LISTA
+
+**Testing: failed**
+
+- Remember it should be like in the image -> Play
+
+![test-menu](images/03-bases/test-menu.png)
+
+It should display the Loading page and then the text 'INICIO' (fragment_inicio_admin.xml).  
+An error was displayed.
+
+![test-menu](images/03-bases/build-errors.png)
+
+**Solving errors**
+
+Open 'build.gradle' (module), it marks an error:
+
+![](images/03-bases/build-gradle-sdk-30.png)
+
+Go to the lower part: tab: Problems   
+Right click in the red one -> Quick fix -> `Update targetSdkVersion to 32`
+
+![](images/03-bases/gradle-dep-updates.png)
+
+Another problem appears: `The compileSdkVersion (30) should not be lower than the targetSdkVersion (32)`  
+Right click in the red one -> Quick fix -> `Set compileSdkVersion to 32`  
+
+Menu Tab: Build -> Rebuild project.  
+Click 'Sync' if necessary.
+
+**Testing again: ok**
+
+Now it works.
+- First the loading page -> Text 'INICIO' (fragment_inicio_admin.xml)
+- The button (3 lines) opens the lateral-menu.
+- Clicking in the menu-items takes us to the respective fragment and displays the corresponding text.
+
+![](images/03-bases/test-ok.png)
+
+It's supposed that when clicking in 'Cerrar Sesión' (menu-item), the message 'Cerraste Sesión' (Toast) should be displayed at the bottom, but it didn't.  
+Probably it's because of the dependencies that are outdated (yellow).  
+I updated all, but the JUnit one -> Sync now.
+
+![](images/03-bases/gradle-dep-updates.png)
+
+Also, there was a message: `Android Gradle Plugin can be upgraded from 4.1.3 to 4.2.2`.
 
 
 
