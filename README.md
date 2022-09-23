@@ -1256,12 +1256,12 @@ An error was displayed.
 
 Open 'build.gradle' (module), it marks an error:
 
-![](images/03-bases/build-gradle-sdk-30.png)
+![build-gradle-sdk-30](images/03-bases/build-gradle-sdk-30.png)
 
 Go to the lower part: tab: Problems   
 Right click in the red one -> Quick fix -> `Update targetSdkVersion to 32`
 
-![](images/03-bases/gradle-dep-updates.png)
+![gradle-dep-updates](images/03-bases/gradle-dep-updates.png)
 
 Another problem appears: `The compileSdkVersion (30) should not be lower than the targetSdkVersion (32)`  
 Right click in the red one -> Quick fix -> `Set compileSdkVersion to 32`  
@@ -1276,16 +1276,39 @@ Now it works.
 - The button (3 lines) opens the lateral-menu.
 - Clicking in the menu-items takes us to the respective fragment and displays the corresponding text.
 
-![](images/03-bases/test-ok.png)
+![test-ok](images/03-bases/test-ok.png)
 
-It's supposed that when clicking in 'Cerrar Sesión' (menu-item), the message 'Cerraste Sesión' (Toast) should be displayed at the bottom, but it didn't.  
-Probably it's because of the dependencies that are outdated (yellow).  
-I updated all, but the JUnit one -> Sync now.
+**A little confusion**
 
-![](images/03-bases/gradle-dep-updates.png)
+Tests so far were done via the Emulator.   
+It's supposed that when clicking in 'Cerrar Sesión' (menu-item), the message 'Cerraste Sesión' (Toast) should be displayed at the bottom, but it didn't.   
+I thought it could be because of the dependencies that are outdated (yellow).  
+I updated all, except the JUnit one -> Sync now.
+
+![gradle-dep-updates](images/03-bases/gradle-dep-updates.png)
 
 Also, there was a message: `Android Gradle Plugin can be upgraded from 4.1.3 to 4.2.2`.
 
+![gradle-upgrade](images/03-bases/gradle-upgrade.png)
 
+On execution, it displayed an error.
+
+![build-grandle-project-error](images/03-bases/build-grandle-project-error.png)
+
+- It's fixed adding the `android:exported="true"`.
+- AndroidManifest.xml
+~~~
+    <activity
+        android:name=".MainActivityAdmin"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:exported="true">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+    </activity>
+~~~
+
+- Despite all that, the Toast didn't displayed.
+- I use mi physical-mobile to the test, and the Toast did appear. So, I won't use the Emulator.
 
 
