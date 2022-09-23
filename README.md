@@ -19,6 +19,7 @@
 - [3.1 Admin Activity (Part 1)](#31-admin-activity-part-1) //
 [3.2 Admin Activity (Part 2)](#32-admin-activity-part-2) //
 [3.3 Admin Fragments](#33-admin-fragments) //
+[3.4 Client Activity (Part 1)](#34-client-activity-part-1) //
 
 ---
 ---
@@ -1310,5 +1311,88 @@ On execution, it displayed an error.
 
 - Despite all that, the Toast didn't displayed.
 - I use mi physical-mobile to the test, and the Toast did appear. So, I won't use the Emulator.
+
+---
+
+### 3.4 Client Activity (Part 1)
+[Index](#index)
+
+- 'res: menu: menu_admin.xml' is the Admin-menu, now we'll do the Client-menu.
+
+- menu -> Right click -> New Menu Resource File -> Name: menu_client -> OK
+- This menu should be like the image.
+- It also will have an option 'Compartir'.
+  - The app will be in the PlayStore, and sharing the link of our app from the same app, will make us have more users.
+  
+![](images/03-bases/client-menu-1.png)
+
+**res: values: strings.xml**
+
+Add some texts to use:
+~~~
+    <!-- Client: menu items -->
+    <string name="OpcionesClient">Opciones</string>
+    <string name="InicioClient">Inicio</string>
+    <string name="MasOpcionesClient">Más opciones</string>
+    <string name="AcercaDeClient">Acerca de</string>
+    <string name="CompartirClient">Compartir</string>
+~~~
+
+**res: drawable**
+
+We need an icon for 'Compartir'.
+- Right click -> New -> Image Asset -> 
+  - Icon Type: Action Bar and Icons
+  - Asset Type: Clip Art
+  - Clip Art: click in it
+    - Search: share -> Select the icon 'share' -> OK
+  - Name: compartir_ico
+  - Next -> Finish
+
+
+- Search another icon for 'Acerca de' -> search: info -> name: acerca_de_ico
+
+**menu-client.xml**
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<!-- These two lines added display the navigation_view (lateral panel)  -->
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <!-- Title: Opciones -->
+    <item android:id="@+id/OpcionesClient"
+        android:title="@string/OpcionesClient">
+
+        <!-- menu-item: Inicio -->
+        <menu>
+            <item android:id="@+id/InicioCliente"
+                android:title="@string/InicioClient"
+                android:icon="@drawable/uno_ico" />
+        </menu>
+    </item>
+
+    <!-- Title: Más opciones -->
+    <item android:id="@+id/MasOpcionesClient"
+        android:title="@string/MasOpcionesClient">
+
+        <!-- menu-items: Acerca de / Compartir -->
+        <menu>
+            <item android:id="@+id/AcercaDeCliente"
+                android:title="@string/AcercaDeClient"
+                android:icon="@drawable/acerca_de_ico" />
+            <item android:id="@+id/CompartirClient"
+                android:title="@string/CompartirClient"
+                android:icon="@drawable/compartir_ico" />
+        </menu>
+    </item>
+
+</menu>
+~~~
+
+![menu-client-1](images/03-bases/menu-client-1.png)
+
 
 

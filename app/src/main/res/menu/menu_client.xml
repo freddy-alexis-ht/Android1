@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- These two lines added display the navigation_view (lateral panel)  -->
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <!-- Title: Opciones -->
+    <item android:id="@+id/OpcionesClient"
+        android:title="@string/OpcionesClient">
+
+        <!-- menu-item: Inicio -->
+        <menu>
+            <item android:id="@+id/InicioCliente"
+                android:title="@string/InicioClient"
+                android:icon="@drawable/uno_ico" />
+        </menu>
+    </item>
+
+    <!-- Title: Más opciones -->
+    <item android:id="@+id/MasOpcionesClient"
+        android:title="@string/MasOpcionesClient">
+
+        <!-- menu-items: Acerca de / Compartir -->
+        <menu>
+            <item android:id="@+id/AcercaDeCliente"
+                android:title="@string/AcercaDeClient"
+                android:icon="@drawable/acerca_de_ico" />
+            <item android:id="@+id/CompartirClient"
+                android:title="@string/CompartirClient"
+                android:icon="@drawable/compartir_ico" />
+        </menu>
+    </item>
+
+</menu>

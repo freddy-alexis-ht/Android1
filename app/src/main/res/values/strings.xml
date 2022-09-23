@@ -7,12 +7,20 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- menu items -->
+    <!-- Admin: menu items -->
     <string name="InicioAdmin">Inicio</string>
     <string name="PerfilAdmin">Perfil</string>
     <string name="RegistrarAdmin">Registrar</string>
     <string name="ListarAdmin">Listar Administradores</string>
     <string name="SalirAdmin">Cerrar sesión</string>
+
+    <!-- Client: menu items -->
+    <string name="OpcionesClient">Opciones</string>
+    <string name="InicioClient">Inicio</string>
+    <string name="MasOpcionesClient">Más opciones</string>
+    <string name="AcercaDeClient">Acerca de</string>
+    <string name="CompartirClient">Compartir</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
