@@ -11,7 +11,7 @@
 
         <!-- menu-item: Inicio -->
         <menu>
-            <item android:id="@+id/InicioCliente"
+            <item android:id="@+id/InicioClient"
                 android:title="@string/InicioClient"
                 android:icon="@drawable/uno_ico" />
         </menu>
@@ -23,7 +23,7 @@
 
         <!-- menu-items: Acerca de / Compartir -->
         <menu>
-            <item android:id="@+id/AcercaDeCliente"
+            <item android:id="@+id/AcercaDeClient"
                 android:title="@string/AcercaDeClient"
                 android:icon="@drawable/acerca_de_ico" />
             <item android:id="@+id/CompartirClient"

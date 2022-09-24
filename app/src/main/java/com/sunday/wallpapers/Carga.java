@@ -34,7 +34,7 @@ public class Carga extends AppCompatActivity {
             // Code to be executed passed DURATION (3 seconds)
             // arg-1: context: class where the call is made
             // arg-2: destiny class
-            Intent intent = new Intent(Carga.this, MainActivityAdmin.class);
+            Intent intent = new Intent(Carga.this, MainActivity.class);
             startActivity(intent);
             finish();
         }, DURATION);

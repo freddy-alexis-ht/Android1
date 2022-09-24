@@ -75,7 +75,6 @@ public class MainActivityAdmin extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.SalirAdmin:
             Toast.makeText(this, "Cerraste sesión", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Cerraste sesión2", Toast.LENGTH_LONG).show();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

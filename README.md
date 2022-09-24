@@ -19,7 +19,8 @@
 - [3.1 Admin Activity (Part 1)](#31-admin-activity-part-1) //
 [3.2 Admin Activity (Part 2)](#32-admin-activity-part-2) //
 [3.3 Admin Fragments](#33-admin-fragments) //
-[3.4 Client Activity (Part 1)](#34-client-activity-part-1) //
+[3.4 Client Activity](#34-client-activity) //
+[3.5 Client Fragments](#35-client-fragments) //
 
 ---
 ---
@@ -1314,7 +1315,7 @@ On execution, it displayed an error.
 
 ---
 
-### 3.4 Client Activity (Part 1)
+### 3.4 Client Activity
 [Index](#index)
 
 - 'res: menu: menu_admin.xml' is the Admin-menu, now we'll do the Client-menu.
@@ -1368,7 +1369,7 @@ We need an icon for 'Compartir'.
 
         <!-- menu-item: Inicio -->
         <menu>
-            <item android:id="@+id/InicioCliente"
+            <item android:id="@+id/InicioClient"
                 android:title="@string/InicioClient"
                 android:icon="@drawable/uno_ico" />
         </menu>
@@ -1380,7 +1381,7 @@ We need an icon for 'Compartir'.
 
         <!-- menu-items: Acerca de / Compartir -->
         <menu>
-            <item android:id="@+id/AcercaDeCliente"
+            <item android:id="@+id/AcercaDeClient"
                 android:title="@string/AcercaDeClient"
                 android:icon="@drawable/acerca_de_ico" />
             <item android:id="@+id/CompartirClient"
@@ -1394,5 +1395,244 @@ We need an icon for 'Compartir'.
 
 ![menu-client-1](images/03-bases/menu-client-1.png)
 
+---
+
+### 3.5 Client Fragments
+[Index](#index)
+
+- java: com.sunday.wallpapers -> right click -> New Activity -> Name: MainActivity (default)
+- These two files are created: 
+  - MainActivity.java
+  - activity_main.xml
+
+Open and copy the code of:
+- activity_main_admin.xml
+Paste it in:
+- activity_main.xml
+
+![menu-3](images/03-bases/menu-3.png)
+
+**Create the Client menu**
+
+Changes in 'activity_main.xml':  
+
+This:   
+`android:id="@+id/drawer_layout_admin"`  
+Changes for:  
+`android:id="@+id/drawer_layout"`
+
+This:  
+`tools:context=".MainActivityAdmin"`  
+Changes for:  
+`tools:context=".MainActivity"`
+
+This:  
+`android:id="@+id/toolbar_admin"`  
+Changes for:  
+`android:id="@+id/toolbar"`
+
+This:  
+`android:id="@+id/fragment_container_admin"`  
+Changes for:  
+`android:id="@+id/fragment_container"`
+
+This:  
+`android:id="@+id/nav_view_admin"`  
+Changes for:  
+`android:id="@+id/nav_view"`
+
+This:  
+`app:menu="@menu/menu_admin"`  
+Changes for:  
+`app:menu="@menu/menu_client"`
+
+The code ends up like this:
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fitsSystemWindows: For the Navigation Drawer doesn't hide the status bar -->
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#fff"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Behind the drawable (menu) -->
+        <!-- ActionBar: It'll get dark when the drawable is open -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!-- drawable -->
+    <!-- app:headerLayout: adds the header -->
+    <!-- app:menu: adds the menu -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/menu_client"
+        android:background="#fff"
+        app:itemTextColor="#000" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
+~~~
+
+![menu-4](images/03-bases/menu-4.png)
+
+**Fragments creation**
+
+- java: com.sunday.wallpapers -> right click -> New package: ClientFragments
+- New Fragment -> Fragment (blank) 
+  - InicioClient: Fragment for 'Inicio'
+  - AcercaDeClient: Fragment for 'Acerca de'
+  - CompartirClient: Fragment for 'Compartir'
+
+*fragment_inicio_client.xml*
+
+- The 'TextView' should be like this:
+~~~
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="INICIO" 
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#000"/>
+~~~
+
+*fragment_acerca_de_client.xml*
+
+Similar to the previous one, just change the text for: ACERCA DE
+
+*fragment_compartir_client.xml*
+
+Similar to the previous one, just change the text for: COMPARTIR
+
+**Linking the menu-items with the Fragments**
+
+- From 'MainActivityAdmin.java' copy some code to paste it to 'MainActivity.java'.  
+- Copy:
+  - `implements NavigationView.OnNavigationItemSelectedListener`
+  - `DrawerLayout drawerLayout;`
+- Copy the onCreate() method code.
+  - Delete the '_admin' errors.
+  - Also in the default fragment delete '_admin' and change 'InicioAdmin' for 'InicioClient'.
+- Copy the onNavigationItemSelected() method code.
+  - Using 'menu_client.xml' replace with the id's: InicioClient, AcercaDeClient, CompartirClient.
+  - In the 'switch' there should be only three 'case:'.
+  - Delete the '_admin'.
+
+*MainActivity.java*
+
+~~~
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    DrawerLayout drawerLayout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setItemIconTintList(null);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        // default fragment
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new InicioClient()).commit();
+            navigationView.setCheckedItem(R.id.InicioClient);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.InicioClient:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new InicioClient()).commit();
+                break;
+            case R.id.AcercaDeClient:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new AcercaDeClient()).commit();
+                break;
+            case R.id.CompartirClient:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new CompartirClient()).commit();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+}
+~~~
+
+**AndroidManifest.xml**
+
+It should be like this:
+~~~
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+    </activity>
+~~~
+
+**Testing**
+
+So far, after the loading-page it goes to the admin-menu.  
+Just to test the client-menu, we'll change that after the loading page it goes to the client-menu.  
+
+Go to 'Carga.java':  
+- Change from 'MainActivityAdmin.class' to 'MainActivity.class'.
+
+~~~
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(Carga.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }, DURATION);
+~~~
+
+It executes successfully. I'm using the physical device.
 
 
