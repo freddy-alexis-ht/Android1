@@ -21,6 +21,17 @@
     <string name="AcercaDeClient">Acerca de</string>
     <string name="CompartirClient">Compartir</string>
 
+    <!-- Admin-menu: Register page -->
+    <string name="Registro">Registro de Administradores</string>
+    <string name="FechaRegistro">Fecha de Registro</string>
+    <string name="Correo">Correo electrónico</string>
+    <string name="Password">Contraseña</string>
+    <string name="Nombres">Nombres completos</string>
+    <string name="Apellidos">Apellidos completos</string>
+    <string name="Edad">Edad</string>
+    <string name="BtnRegistrar">Registrar</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

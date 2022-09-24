@@ -21,6 +21,7 @@
 [3.3 Admin Fragments](#33-admin-fragments) //
 [3.4 Client Activity](#34-client-activity) //
 [3.5 Client Fragments](#35-client-fragments) //
+[3.6 Page to register Administrators](#36-page-to-register-administrators) //
 
 ---
 ---
@@ -1634,5 +1635,361 @@ Go to 'Carga.java':
 ~~~
 
 It executes successfully. I'm using the physical device.
+
+---
+
+### 3.6 Page to register Administrators
+[Index](#index)
+
+Go to 'Carga.java':
+- Change from 'MainActivity.class' to 'MainActivityAdmin.class'.
+
+~~~
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(Carga.this, MainActivityAdmin.class);
+            startActivity(intent);
+            finish();
+        }, DURATION);
+~~~
+
+**Adding some dependencies**
+
+*RegistarAdmin.java*
+
+- Delete everything except the onCreateView() method. It should be like this:
+
+~~~
+public class RegistrarAdmin extends Fragment {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_registrar_admin, container, false);
+    }
+}
+~~~
+
+Then, make some changes in 'onCreateView()':
+~~~
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_registrar_admin, container, false);
+        return view;
+    }
+~~~
+
+To register, we need to enable the Firebase library for storing.  
+In 'build.gradle' (module) paste this in dependencies:  
+`implementation 'com.google.firebase:firebase-database:19.2.0'`
+
+When registering a new admin we'll use an email. So, to work with Firebase Authentication, we need this library:  
+`implementation 'com.google.firebase:firebase-auth:18.0.0'`
+
+**Resources for page design**
+
+*strings.xml*
+
+Admin info to consider: correo, contraseña, nombres, apellidos, edad, fecha-registro.
+
+~~~
+    <string name="Registro">Registro de Administradores</string>
+    <string name="FechaRegistro">Fecha de Registro</string>
+    <string name="Correo">Correo electrónico</string>
+    <string name="Password">Contraseña</string>
+    <string name="Nombres">Nombres completos</string>
+    <string name="Apellidos">Apellidos completos</string>
+    <string name="Edad">Edad</string>
+    <string name="BtnRegistrar">Registrar</string>
+~~~
+
+- Icon for 'FechaRegistro'.
+- Go to: drawable -> New -> Image Asset -> Clip Art
+- Search for: calendar -> Select: calendar today -> Name: calendar_ico
+
+*res: drawable: anydpi/calendar_ico.xml*
+
+- Delete the line: `android:alpha="0.6"`
+- Assign a color: `android:tint="#FA5882"`
+It's like this:
+
+~~~
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#FA5882">
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M20,3h-1L19,1h-2v2L7,3L7,1L5,1v2L4,3c-1.1,0 -2,0.9 -2,2v16c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2L22,5c0,-1.1 -0.9,-2 -2,-2zM20,21L4,21L4,8h16v13z"/>
+</vector>
+~~~
+
+**Register page design**
+
+*fragment_registrar_admin.xml*
+
+- Replace de 'FrameLayout' for 'ScrollView'.
+- Change the background color for: #fff (white)
+- Delete the 'TextView'.
+- Add a 'LinearLayoutCompat'.
+- Add new 'TextView'.
+  - Add the title.
+  - The image is in 'Materiales-del-proyecto': admin.png (it also can be downloaded from 'flaticon')
+  - Drawable -> Open in Explorer -> paste it in 'drawable' (make sure the path is: ~\app\src\main\res\drawable)
+  - Call the image in the .xml with 'src'.
+
+By now, there are 5 'TextInputs', they only change in the two lines indicated, the rest is the same.
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".AdminFragments.RegistrarAdmin">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp" >
+        
+        <!-- Title -->
+        <TextView
+            android:text="@string/Registro"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Image -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/admin"
+            android:layout_marginTop="20dp"/>
+
+        <!-- TextInput for 'Correo electrónico' -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Correo"
+                android:hint="@string/Correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- TextInput for 'Contraseña' -->
+                android:id="@+id/Password"
+                android:hint="@string/Password"
+
+        <!-- TextInput for 'Nombres' -->
+                android:id="@+id/Nombres"
+                android:hint="@string/Nombres"
+
+        <!-- TextInput for 'Apellidos' -->
+                android:id="@+id/Apellidos"
+                android:hint="@string/Apellidos"
+
+        <!-- TextInput for 'Edad' -->
+                android:id="@+id/Edad"
+                android:hint="@string/Edad"
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>
+~~~
+
+![admin-register](images/03-bases/admin-register.png)
+
+**Text inputs validation**
+
+*fragment_registrar_admin.xml*
+
+- InputTextLayout -> EditText for 'Correo', add: `android:inputType="textEmailAddress"`
+
+
+- InputTextLayout for 'Contraseña' add: `app:passwordToggleEnabled="true"`
+  - This adds the 'eye' that can show or hide the password when clicking in it.
+- InputTextLayout -> EditText for 'Contraseña', add: `android:inputType="textPassword"`
+
+
+- InputTextLayout -> EditText for 'Nombres', add: `android:inputType="textCapWords|textAutoCorrect"`
+  - The text will initiate with uppercase, and if there's a space for a second name, this one will initiate with uppercase too.
+- The same for EditText for 'Apellidos'.
+
+
+- InputTextLayout -> EditText for 'Edad', add: `android:inputType="number"`
+
+
+- Adding also the text 'Fecha de Registro' and the calendar icon.
+
+**Adding a button**
+
+
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff"
+    tools:context=".AdminFragments.RegistrarAdmin">
+
+    <!-- The whole form -->
+    <!-- padding: distance to the borders -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp" >
+
+        <!-- Title: Registro de Administradores -->
+        <TextView
+            android:text="@string/Registro"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Horizontal layout for 'Fecha' and calendar icon -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <!-- Text: Fecha de Registro -->
+            <TextView
+                android:id="@+id/FechaRegistro"
+                android:text="@string/FechaRegistro"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Calendar icon -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/calendar_ico" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- Profile image -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/admin"
+            android:layout_marginTop="20dp"/>
+
+        <!-- TextInput for 'Correo electrónico' -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="20dp" >
+
+            <EditText
+                android:id="@+id/Correo"
+                android:hint="@string/Correo"
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- TextInput for 'Contraseña' -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/Password"
+                android:hint="@string/Password"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- TextInput for 'Nombres' -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Nombres"
+                android:hint="@string/Nombres"
+                android:inputType="textCapWords|textAutoCorrect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- TextInput for 'Apellidos' -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Apellidos"
+                android:hint="@string/Apellidos"
+                android:inputType="textCapWords|textAutoCorrect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- TextInput for 'Edad' -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Edad"
+                android:hint="@string/Edad"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/BtnRegistrar"
+            android:text="@string/BtnRegistrar"
+            android:background="#0489B1"
+            android:textColor="#FFF"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>
+~~~
+
+![admin-register-2](images/03-bases/admin-register-2.png)
+
+
+
+
+
+
 
 
