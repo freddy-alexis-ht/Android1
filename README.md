@@ -23,6 +23,7 @@
 [3.5 Client Fragments](#35-client-fragments) //
 [3.6 Page to register Administrators](#36-page-to-register-administrators) //
 [3.7 Permissions configuration in Firebase](#37-permissions-configuration-in-firebase) //
+[3.8 Registering admins](#38-registering-admins) //
 
 ---
 ---
@@ -2052,6 +2053,181 @@ Now, admins will have to use their email to sign-up (register) and sign-in (star
 
 ![firebase-14](images/03-bases/firebase-14.png)
 
+---
+
+### 3.8 Registering admins
+[Index](#index)
+
+Interaction between: 
+- fragment_registrar_admin.xml
+- RegistrarAdmin.java
+
+**RegistrarAdmin.java**
+
+- Declaration: From the .xml copy the id's and declare them in the .java
+- Initialization: Inside of 'onCreateView()'.
+- Button functionality: Inside of 'onCreateView()'.
+  - Set a ProgressDialog 
+  - Since it's been initialized through a Fragment (extend) it won't allow to use 'finViewById' directly, instead, we'll use the 'View' instance.
+  - registroDeAdmins(): method to register admins
+
+~~~
+public class RegistrarAdmin extends Fragment {
+
+    // Declaration
+    TextView FechaRegistro;
+    EditText Correo, Password, Nombres, Apellidos, Edad;
+    Button BtnRegistrar;
+
+    FirebaseAuth auth;
+    // animation after clicking in btnRegistrar
+    ProgressDialog progressDialog;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_registrar_admin, container, false);
+
+        // Initialization
+        FechaRegistro = view.findViewById(R.id.FechaRegistro);
+        Correo = view.findViewById(R.id.Correo);
+        Password = view.findViewById(R.id.Password);
+        Nombres = view.findViewById(R.id.Nombres);
+        Apellidos = view.findViewById(R.id.Apellidos);
+        Edad = view.findViewById(R.id.Edad);
+
+        BtnRegistrar = view.findViewById(R.id.BtnRegistrar);
+        auth = FirebaseAuth.getInstance();
+
+        // Date of our device
+        Date date = new Date();
+        SimpleDateFormat fecha = new SimpleDateFormat("d 'de' MMMM 'del' yyyy"); // 14 de enero del 2022
+        String stringFecha = fecha.format(date); // Conversion from Date to String
+        FechaRegistro.setText(stringFecha);
+
+        // Click in 'Registrar' button
+        // Lambda can be used here
+        BtnRegistrar.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String correo = Correo.getText().toString();
+                String password = Password.getText().toString();
+
+                // Correo & Password validation
+                if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                    // Invalid in absence of '@' and '.com'
+                    Correo.setError("Correo inválido");
+                    Correo.setFocusable(true);
+                }
+                else if (password.length() < 6) {
+                    Password.setError("La contraseña debe tener 6 o más caracteres");
+                    Correo.setFocusable(true);
+                }
+                else {
+                    registroDeAdmins(correo, password);
+                }
+            }
+        });
+
+        // As we're in a fragment, we can't write the param: RegistrarAdmin.this
+        // ..it's valid only in activities.
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Registrando, espere por favor");
+        // to avoid the cancelling of the progressDialog by touching somewhere else
+        progressDialog.setCancelable(false);
+
+        return view;
+    }
+
+    /* METHOD TO REGISTER ADMINS */
+    private void registroDeAdmins(String correo, String password) {
+        progressDialog.show();
+        auth.createUserWithEmailAndPassword(correo, password)
+                // ON COMPLETE
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // if admin was created successfully
+                        if (task.isSuccessful()) {
+                            progressDialog.dismiss(); // closes the progress-dialog
+                            FirebaseUser user = auth.getCurrentUser(); // app current-user
+
+                            // convert to string the admin data
+                            String UID = user.getUid();
+                            String correo = Correo.getText().toString();
+                            String password = Password.getText().toString();
+                            String nombres = Nombres.getText().toString();
+                            String apellidos = Apellidos.getText().toString();
+                            int edad = Integer.parseInt(Edad.getText().toString());
+
+                            // Used to send data to Firebase server
+                            HashMap<Object, Object> admins = new HashMap<>();
+                            admins.put("UID", UID);
+                            admins.put("CORREO", correo);
+                            admins.put("PASSWORD", password);
+                            admins.put("NOMBRES", nombres);
+                            admins.put("APELLIDOS", apellidos);
+                            admins.put("EDAD", edad);
+                            admins.put("IMAGEN", "");
+
+                            // Initialize Firebase DB
+                            FirebaseDatabase db = FirebaseDatabase.getInstance();
+                            // The name we want for our DB
+                            DatabaseReference dbReference = db.getReference("DB-ADMINS");
+                            // This is like saying: UID is the PK that refs to: UID, CORREO, ...
+                            dbReference.child(UID).setValue(admins);
+                            // After registration, redirect to 'MainActivityAdmin'
+                            startActivity(new Intent(getActivity(), MainActivityAdmin.class));
+                            // Toast-message
+                            Toast.makeText(getActivity(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+
+                        } // END OF: if admin was created successfully
+
+                        else {
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+
+                // ON FAILURE
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+}
+~~~
+
+![jdk-11](images/03-bases/jdk-11.png)
+
+**Testing**
+
+I had to update JDK from 8 to 11.  
+Also, update some dependencies in build.gradle (module).  
+It works fine.  
+
+- Go to Firebase -> Realtime Database -> Console
+
+![realtime-db-1](images/03-bases/realtime-db-1.png)
+
+- In the app, enter data (validate).
+
+![app-registrar](images/03-bases/app-registrar.png)
+
+- Click on 'Registrar'
+- In that exact moment the DB will appear in the Console.
+
+![realtime-db-2](images/03-bases/realtime-db-2.png)
+
+Registers are order by the UID.
+
+![db-admins-1](images/03-bases/db-admins-1.png)
+
+After the register tha app redirects to 'MainActivityAdmin.java' so in the app we're in 'INICIO' de default-fragment.
 
 
 
