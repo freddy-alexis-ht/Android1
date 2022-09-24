@@ -22,6 +22,7 @@
 [3.4 Client Activity](#34-client-activity) //
 [3.5 Client Fragments](#35-client-fragments) //
 [3.6 Page to register Administrators](#36-page-to-register-administrators) //
+[3.7 Permissions configuration in Firebase](#37-permissions-configuration-in-firebase) //
 
 ---
 ---
@@ -1986,6 +1987,70 @@ By now, there are 5 'TextInputs', they only change in the two lines indicated, t
 
 ![admin-register-2](images/03-bases/admin-register-2.png)
 
+---
+
+### 3.7 Permissions configuration in Firebase
+[Index](#index)
+
+**Authentication**
+
+- Go to Firebase -> Console -> our project 
+- Left panel: Compilation: Authentication -> Start -> Correo electrónico
+
+![firebase-1](images/03-bases/firebase-1.png)
+
+![firebase-2](images/03-bases/firebase-2.png)
+
+Now, admins will have to use their email to sign-up (register) and sign-in (start session).  
+
+**Database**
+
+- Go to left panel: Compilation: Realtime Database -> Create DB
+
+![firebase-3](images/03-bases/firebase-3.png)
+
+- Next -> select 'modo de prueba'
+
+![firebase-4](images/03-bases/firebase-4.png)
+
+![firebase-5](images/03-bases/firebase-5.png)
+
+- Go to tab 'Reglas'.
+
+![firebase-6](images/03-bases/firebase-6.png)
+
+- Edit.
+
+![firebase-7](images/03-bases/firebase-7.png)
+
+- Publicar.
+
+![firebase-8](images/03-bases/firebase-8.png)
+
+**Storage**
+
+- Go to left panel: Compilation: Storage
+- Empezar -> Siguiente -> Listo.
+
+![firebase-9](images/03-bases/firebase-9.png)
+
+![firebase-10](images/03-bases/firebase-10.png)
+
+- Click in the link to copy it:
+
+![firebase-11](images/03-bases/firebase-11.png)
+
+- Go to tab 'Reglas'.
+- Replace 'bucket' with 'gs://wallpapers-e4881.appspot.com'
+
+![firebase-12](images/03-bases/firebase-12.png)
+
+![firebase-13](images/03-bases/firebase-13.png)
+
+- All this is done to store our images in the Storage.
+- In the video the last line is different than in my case. I used mine.
+
+![firebase-14](images/03-bases/firebase-14.png)
 
 
 
