@@ -2227,6 +2227,10 @@ Registers are order by the UID.
 
 ![db-admins-1](images/03-bases/db-admins-1.png)
 
+We can also check the auth-operations performed by Firebase Authentication in:
+
+![authentication-1](images/03-bases/authentication-1.png)
+
 After the register tha app redirects to 'MainActivityAdmin.java' so in the app we're in 'INICIO' de default-fragment.
 
 
