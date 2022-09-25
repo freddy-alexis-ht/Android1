@@ -28,6 +28,7 @@
 [3.10 Method to check if session was started](#310-method-to-check-if-session-was-started) //
 [3.11 Method to close session](#311-method-to-close-session) //
 [3.12 Designing Admin login](#312-designing-admin-login) //
+[3.13 Admin login functionality](#313-admin-login-functionality) //
 
 ---
 ---
@@ -2580,7 +2581,8 @@ public class AcercaDeClient extends Fragment {
         <!-- PASSWORD -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/Password"
@@ -2608,5 +2610,139 @@ It works fine.
 
 ![login-1](images/03-bases/login-1.png)
 
+---
 
+### 3.13 Admin login functionality
+[Index](#index)
 
+- As we're going to start session, we'll need 'Firebase Authentication'.
+- The 'ProgressDialog' will display a message after clicking 'Acceder'.
+- The code for 'correo&pass' validation we already have it in 'RegistrarAdmin.java'.
+
+~~~
+public class InicioSesion extends AppCompatActivity {
+
+    EditText Correo, Password;
+    Button BtnAcceder;
+    FirebaseAuth firebaseAuth;
+    ProgressDialog progressDialog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_inicio_sesion);
+
+        /* It's the orange bar at the top */
+        /* This is only for our 'inicio-sesion' activity design */
+        ActionBar actionBar = getSupportActionBar();    // androidx.appcompat.app.ActionBar
+        assert actionBar != null;                       // assert that actionBar is not null
+        actionBar.setTitle("Inicio sesión");            // assign a title
+        actionBar.setDisplayHomeAsUpEnabled(true);      // enable 'retroceso' button
+        actionBar.setDisplayShowHomeEnabled(true);
+
+        Correo = findViewById(R.id.Correo);
+        Password = findViewById(R.id.Password);
+        BtnAcceder = findViewById(R.id.BtnAcceder);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        progressDialog = new ProgressDialog(InicioSesion.this);
+        progressDialog.setMessage("Ingresando, espere por favor.");
+        progressDialog.setCancelable(false);
+
+        /* CORREO & PASSWORD VALIDATION */
+        BtnAcceder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String correo = Correo.getText().toString();
+                String password = Password.getText().toString();
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                    // Invalid in absence of '@' and '.com'
+                    Correo.setError("Correo inválido");
+                    Correo.setFocusable(true);
+                }
+                else if (password.length() < 6) {
+                    Password.setError("La contraseña debe tener 6 o más caracteres");
+                    Correo.setFocusable(true);
+                }
+                else {
+                    logeoAdmin(correo, password);
+                }
+            }
+        });
+
+    }
+
+    private void logeoAdmin(String correo, String password) {
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+
+        /* SIGN IN */
+        firebaseAuth.signInWithEmailAndPassword(correo, password)
+                /* ON COMPLETE */
+                .addOnCompleteListener(InicioSesion.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        /* SIGN IN SUCCESSFUL */
+                        if (task.isSuccessful()) {
+                            progressDialog.dismiss();
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            startActivity( new Intent( InicioSesion.this, MainActivityAdmin.class));
+                            assert firebaseUser != null;
+                            Toast.makeText(InicioSesion.this, "Bienvenido(a) "+firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                            finish(); // to destroy 'InicioSesion' activity
+                        }
+                        /* SIGN IN NOT SUCCESSFUL */
+                        else {
+                            progressDialog.dismiss();
+                            usuarioInvalido();
+                        }
+                    }
+                })
+                /* ON FAILURE */
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        usuarioInvalido();
+                    }
+                });
+    }
+
+    private void usuarioInvalido() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(InicioSesion.this);
+        builder.setCancelable(false);
+        builder.setTitle("Ha ocurrido un error!");
+        builder.setMessage("Verifique que el correo y contraseña sean correctos")
+                .setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).show(); // to show the AlertDialog
+
+    }
+
+    // When 'retroceso' button is pressed, it will redirect to the previous activity
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+}
+~~~
+
+So far there are two admins (Firebase Authentication).
+- domingo@gmail.com (pass: 123456)
+- abc@gmail.com (pass: 123456)
+
+Let's test with 'domingo...'
+
+Using wrong credentials.
+
+![wrong-credentials](images/03-bases/wrong-credentials.png)
+
+Using right credentials.
+- Redirects to Inicio-Admin.
+- It displays the Toast-messages.
