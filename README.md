@@ -5,7 +5,7 @@
 [1.2 Using Cellphone emulator for tests](#12-using-cellphone-emulator-for-tests) //
 [1.3 Project creation](#13-project-creation) //
 
-[2. SETTING UP THE BASE OF THE PROJECT](#2-setting-up-the-base-of-the-project)<br>
+[2. PROJECT SET UP, LOADING PAGE, FIREBASE](#2-project-set-up-loading-page-firebase)<br>
 - [2.1 Loading page](#21-loading-page) //
 [2.2 Loading page animation](#22-loading-page-animation) //
 [2.3 Loading page duration](#23-loading-page-duration) //
@@ -15,7 +15,7 @@
 [2.7 App description](#27-app-description) //
 [2.8 Roles: Client & Admin](#28-roles-client--admin) //
 
-[3 DESIGN AND DEVELOP THE BASE OF THE PROJECT](#3-design-and-develop-the-base-of-the-project)<br>
+[3. MENUS (ADMIN-CLIENT) LOGIN PAGE, FIREBASE DB-AUTH](#3-menus-admin-client-login-page-firebase-db-auth)<br>
 - [3.1 Admin Activity (Part 1)](#31-admin-activity-part-1) //
 [3.2 Admin Activity (Part 2)](#32-admin-activity-part-2) //
 [3.3 Admin Fragments](#33-admin-fragments) //
@@ -29,6 +29,9 @@
 [3.11 Method to close session](#311-method-to-close-session) //
 [3.12 Designing Admin login](#312-designing-admin-login) //
 [3.13 Admin login functionality](#313-admin-login-functionality) //
+
+[4. CATEGORIES, FIREBASE STORAGE](#4-categories-firebase-storage)<br>
+- [4.1 Inicio-Admin: Categories interface](#41-inicio-admin-categories-interface) //
 
 ---
 ---
@@ -241,7 +244,7 @@ Now, it does appear:
 ---
 ---
 
-## 2. SETTING UP THE BASE OF THE PROJECT
+## 2. PROJECT SET UP, LOADING PAGE, FIREBASE
 [Index](#index)
 
 ### 2.1 Loading page
@@ -803,7 +806,7 @@ If the user just doesn't enter user&pass, the app will consider the user as a cl
 ---
 ---
 
-## 3. DESIGN AND DEVELOP THE BASE OF THE PROJECT
+## 3. MENUS (ADMIN-CLIENT) LOGIN PAGE, FIREBASE DB-AUTH
 [Index](#index)
 
 ### 3.1 Admin Activity (Part 1)
@@ -2746,3 +2749,290 @@ Using wrong credentials.
 Using right credentials.
 - Redirects to Inicio-Admin.
 - It displays the Toast-messages.
+
+---
+---
+
+## 4. CATEGORIES, FIREBASE STORAGE
+[Index](#index)
+
+### 4.1 Inicio-Admin: Categories interface
+
+Images
+- Images that belong to categories: Películas, Series, Música, Videojuegos .. will be uploaded from the physical device.
+- Images that belong to categories: Caricaturas, Naturaleza, Deportes, Animales .. will be uploaded from Firebase.
+
+
+- Uploading tasks will be performed by the Admin, via 'InicioAdmin' fragment.
+
+**Images**
+
+- It's better to use images of 200KB (max. 500KB). 
+- Go here to compress images: <https://tinypng.com/>
+
+![tiny-png](images/04-categories/tiny-png.png)
+
+- The images are in 'Materiales-del-proyecto':
+  - peliculas.jpg, series.jpg, musica.jpg, videojuegos.jpg
+- Copy the images -> drawable -> paste
+
+**strings.xml**
+
+~~~
+    <!-- CATEGORIES -->
+    <string name="teviEligeCategoria">Elige Categoria</string>
+    <string name="btnPeliculas">PELÍCULAS</string>
+    <string name="btnSeries">SERIES</string>
+    <string name="btnMusica">MÚSICA</string>
+    <string name="btnVideojuegos">VIDEOJUEGOS</string>
+~~~
+
+**fragment_inicio_admin.xml**
+
+- weightSum="2" .. it's like a grid of 2.
+- layout_weight="1" .. occupies 1 part of 2
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".AdminFragments.InicioAdmin">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:text="@string/teviEligeCategoria"
+            android:textColor="#000"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- FILA 1: TWO BUTTONS-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnPeliculas"
+                android:text="@string/btnPeliculas"
+                android:background="#04B4AE"
+                android:textColor="#fff"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnSeries"
+                android:text="@string/btnSeries"
+                android:background="#04B4AE"
+                android:textColor="#fff"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- FILA 2: TWO BUTTONS-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnMusica"
+                android:text="@string/btnMusica"
+                android:background="#04B4AE"
+                android:textColor="#fff"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnVideojuegos"
+                android:text="@string/btnVideojuegos"
+                android:background="#04B4AE"
+                android:textColor="#fff"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>
+~~~
+
+![](images/04-categories/elige-1.png)
+
+**fragment_inicio_admin.xml**
+
+- Reordering:
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".AdminFragments.InicioAdmin">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:text="@string/teviEligeCategoria"
+            android:textColor="#000"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- FILA 1: TWO BUTTONS-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:weightSum="2">
+
+            <!-- PELICULAS -->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/peliculas"/>
+
+                <Button
+                    android:id="@+id/btnPeliculas"
+                    android:text="@string/btnPeliculas"
+                    android:background="#04B4AE"
+                    android:textColor="#fff"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- SERIES -->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/series"/>
+
+                <Button
+                    android:id="@+id/btnSeries"
+                    android:text="@string/btnSeries"
+                    android:background="#04B4AE"
+                    android:textColor="#fff"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- FILA 2: TWO BUTTONS-->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:weightSum="2">
+
+            <!-- MUSICA -->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/musica"/>
+
+                <Button
+                    android:id="@+id/btnMusica"
+                    android:text="@string/btnMusica"
+                    android:background="#04B4AE"
+                    android:textColor="#fff"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- VIDEOJUEGOS -->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/videojuegos"/>
+
+                <Button
+                    android:id="@+id/btnVideojuegos"
+                    android:text="@string/btnVideojuegos"
+                    android:background="#04B4AE"
+                    android:textColor="#fff"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>
+~~~
+**Testing**
+
+It works fine.
+
+![inicio-1](images/04-categories/inicio-1.png)

@@ -1,29 +1,28 @@
 <resources>
-    <!-- loading page -->
+    <!-- LOADING PAGE -->
     <string name="app_name">Wallpapers</string>
     <string name="developer">Developed by: Freddy Huaman</string>
 
-    <!-- navigation drawer -->
+    <!-- NAVIGATION DRAWER -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- Admin: menu items -->
+    <!-- ADMIN: MENU ITEMS -->
     <string name="InicioAdmin">Inicio</string>
     <string name="PerfilAdmin">Perfil</string>
     <string name="RegistrarAdmin">Registrar</string>
     <string name="ListarAdmin">Listar Administradores</string>
     <string name="SalirAdmin">Cerrar sesión</string>
 
-    <!-- Client: menu items -->
+    <!-- CLIENT: MENU ITEMS -->
     <string name="OpcionesClient">Opciones</string>
     <string name="InicioClient">Inicio</string>
     <string name="MasOpcionesClient">Más opciones</string>
     <string name="AcercaDeClient">Acerca de</string>
     <string name="CompartirClient">Compartir</string>
-
     <string name="BtnAcceder">Acceder</string>
 
-    <!-- Admin-menu: Register page -->
+    <!-- ADMIN: REGISTRAR-ADMIN PAGE -->
     <string name="Registro">Registro de Administradores</string>
     <string name="FechaRegistro">Fecha de Registro</string>
     <string name="Correo">Correo electrónico</string>
@@ -37,7 +36,12 @@
     <string name="LoginTitle">Login de Administradores</string>
     <string name="Ingresar">Ingresar</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- CATEGORIES -->
+    <string name="teviEligeCategoria">Elige Categoria</string>
+    <string name="btnPeliculas">PELÍCULAS</string>
+    <string name="btnSeries">SERIES</string>
+    <string name="btnMusica">MÚSICA</string>
+    <string name="btnVideojuegos">VIDEOJUEGOS</string>
+
 
 </resources>
