@@ -27,6 +27,7 @@
 [3.9 Admin register-fields Validation](#39-admin-register-fields-validation) //
 [3.10 Method to check if session was started](#310-method-to-check-if-session-was-started) //
 [3.11 Method to close session](#311-method-to-close-session) //
+[3.12 Designing Admin login](#312-designing-admin-login) //
 
 ---
 ---
@@ -2403,6 +2404,209 @@ Open the app again:
 - It starts with the loading page.
 - sessionStartedCheck() is run and it verifies the 'firebaseUser' is null.
 - It redirects to Inicio-Client.
+
+---
+
+### 3.12 Designing Admin login
+[Index](#index)
+
+- Starting in 'Inicio-Client'.
+- Left panel: 'Acerca de'.
+- Redirects to an activity that includes a button 'Acceder'.
+- When clicking on it, redirects to another activity: login.
+
+**strings.xml**
+
+- In the client-menu-items add the last line, text for the button.
+~~~
+    <!-- Client: menu items -->
+    <string name="OpcionesClient">Opciones</string>
+    <string name="InicioClient">Inicio</string>
+    <string name="MasOpcionesClient">Más opciones</string>
+    <string name="AcercaDeClient">Acerca de</string>
+    <string name="CompartirClient">Compartir</string>
+
+    <string name="BtnAcceder">Acceder</string>
+~~~
+
+**fragment_acerca_de_client.xml**
+
+- When entering to 'Acerca de' left panel option.
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="#fff"
+    tools:context=".ClientFragments.AcercaDeClient">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/BtnAcceder"
+            android:text="@string/BtnAcceder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
+~~~
+
+**Fragment: AcercaDeClient -> Fragment: InicioSesion**
+
+- java: com.sunday.wallpapers -> right click -> New empty activity -> Name: InicioSesion -> Finish
+- Activity that displays after clicking in 'btnAcceder'.
+  - InicioSesion.java .. created
+  - activity_inicio-sesion.xml .. created
+  
+**AcercaDeClient.java**
+
+Go to: java -> ClientFragments -> AcercaDeClient
+- Delete everything but 'onCreateView()'.
+- Using the button from the design. 
+- Including the code to go to the activity 'InicioSesion'.
+
+~~~
+public class AcercaDeClient extends Fragment {
+
+    Button btnAcceder;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_acerca_de_client, container, false);
+
+        btnAcceder = view.findViewById(R.id.BtnAcceder);
+
+        btnAcceder.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent( getActivity(), InicioSesion.class));
+            }
+        });
+
+        return view;
+    }
+}
+~~~
+
+**Designing login: activity_inicio_sesion.xml**
+
+- Open 'Materiales-del-proyecto' -> copy 'admin.json'
+- Go to 'assets' -> Open in explores -> paste.
+
+
+- We need also some strings: strings.xml
+- We already had the last two strings, reuse.
+
+~~~
+    <!-- ADMIN LOGIN-->
+    <string name="LoginTitle">Login de Administradores</string>
+    <string name="Ingresar">Ingresar</string>
+    <string name="Correo">Correo electrónico</string>
+    <string name="Password">Contraseña</string>
+~~~
+
+- Reusing code to add the animation:
+- Go to: layout -> 'carga.xml' -> copy the animation code
+
+
+- So the code is like this:
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".InicioSesion">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="15dp">
+
+        <!-- TITLE -->
+        <TextView
+            android:text="@string/LoginTitle"
+            android:textColor="#000"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- ANIMATION -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            app:lottie_imageAssetsFolder="assets"
+            app:lottie_fileName="admin.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+
+        <!-- CORREO -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/Correo"
+                android:hint="@string/Correo"
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- PASSWORD -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/Password"
+                android:hint="@string/Password"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/BtnAcceder"
+            android:text="@string/BtnAcceder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
+~~~
+
+**Testing**
+
+It works fine.
+
+![login-1](images/03-bases/login-1.png)
 
 
 

@@ -21,6 +21,8 @@
     <string name="AcercaDeClient">Acerca de</string>
     <string name="CompartirClient">Compartir</string>
 
+    <string name="BtnAcceder">Acceder</string>
+
     <!-- Admin-menu: Register page -->
     <string name="Registro">Registro de Administradores</string>
     <string name="FechaRegistro">Fecha de Registro</string>
@@ -31,6 +33,9 @@
     <string name="Edad">Edad</string>
     <string name="BtnRegistrar">Registrar</string>
 
+    <!-- ADMIN LOGIN-->
+    <string name="LoginTitle">Login de Administradores</string>
+    <string name="Ingresar">Ingresar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
