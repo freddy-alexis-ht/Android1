@@ -2231,10 +2231,78 @@ We can also check the auth-operations performed by Firebase Authentication in:
 
 ![authentication-1](images/03-bases/authentication-1.png)
 
-After the register tha app redirects to 'MainActivityAdmin.java' so in the app we're in 'INICIO' de default-fragment.
+After the register the app redirects to 'MainActivityAdmin.java' so in the app we're in 'INICIO' de default-fragment.
 
+---
 
+### 3.9 Admin register-fields Validation
+[Index](#index)
 
+To register an Admin it's required to enter those 5 fields: correo, contraseña, nombres, apellidos, edad.  
+If some of those is not entered, it won't register anything in the DB, and auth-ops won't be performed.
 
+**RegistrarAdmin.java**
+
+- Go to: onCreateView() -> setOnClickListener() -> onClick()
+- There we already have 'correo & password' validations:
+
+~~~
+    /* CORREO & PASSWORD VALIDATION */
+    if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+        // Invalid in absence of '@' and '.com'
+        Correo.setError("Correo inválido");
+        Correo.setFocusable(true);
+    }
+    else if (password.length() < 6) {
+        Password.setError("La contraseña debe tener 6 o más caracteres");
+        Correo.setFocusable(true);
+    }
+    else {
+        registroDeAdmins(correo, password);
+    }
+~~~
+
+- The previous validation will be done in case all fields have data.
+- Now in: onCreateView() -> setOnClickListener() -> onClick() ..we have this:
+
+~~~
+    // Click in 'Registrar' button
+    // Lambda can be used here
+    BtnRegistrar.setOnClickListener( new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String correo = Correo.getText().toString();
+            String password = Password.getText().toString();
+            String nombres = Nombres.getText().toString();
+            String apellidos = Apellidos.getText().toString();
+            String edad = Edad.getText().toString();
+
+            /* VALIDATING EMPTY FIELDS */
+            if(correo.equals("") || password.equals("") || nombres.equals("") || apellidos.equals("") || edad.equals("")) {
+                Toast.makeText(getActivity(), "Por favor llene todos los campos", Toast.LENGTH_SHORT).show();
+            } else {
+                /* CORREO & PASSWORD VALIDATION */
+                if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                    // Invalid in absence of '@' and '.com'
+                    Correo.setError("Correo inválido");
+                    Correo.setFocusable(true);
+                }
+                else if (password.length() < 6) {
+                    Password.setError("La contraseña debe tener 6 o más caracteres");
+                    Correo.setFocusable(true);
+                }
+                else {
+                    registroDeAdmins(correo, password);
+                }
+            }
+        }
+    });
+~~~
+
+**Testing**
+
+![second-register-1](images/03-bases/second-register-1.png)
+
+![second-register-2](images/03-bases/second-register-2.png)
 
 

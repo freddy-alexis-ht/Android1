@@ -72,19 +72,27 @@ public class RegistrarAdmin extends Fragment {
             public void onClick(View view) {
                 String correo = Correo.getText().toString();
                 String password = Password.getText().toString();
+                String nombres = Nombres.getText().toString();
+                String apellidos = Apellidos.getText().toString();
+                String edad = Edad.getText().toString();
 
-                // Correo & Password validation
-                if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-                    // Invalid in absence of '@' and '.com'
-                    Correo.setError("Correo inválido");
-                    Correo.setFocusable(true);
-                }
-                else if (password.length() < 6) {
-                    Password.setError("La contraseña debe tener 6 o más caracteres");
-                    Correo.setFocusable(true);
-                }
-                else {
-                    registroDeAdmins(correo, password);
+                /* VALIDATING EMPTY FIELDS */
+                if(correo.equals("") || password.equals("") || nombres.equals("") || apellidos.equals("") || edad.equals("")) {
+                    Toast.makeText(getActivity(), "Por favor llene todos los campos", Toast.LENGTH_SHORT).show();
+                } else {
+                    /* CORREO & PASSWORD VALIDATION */
+                    if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+                        // Invalid in absence of '@' and '.com'
+                        Correo.setError("Correo inválido");
+                        Correo.setFocusable(true);
+                    }
+                    else if (password.length() < 6) {
+                        Password.setError("La contraseña debe tener 6 o más caracteres");
+                        Correo.setFocusable(true);
+                    }
+                    else {
+                        registroDeAdmins(correo, password);
+                    }
                 }
             }
         });
