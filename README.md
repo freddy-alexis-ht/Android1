@@ -24,6 +24,8 @@
 [3.6 Page to register Administrators](#36-page-to-register-administrators) //
 [3.7 Permissions configuration in Firebase](#37-permissions-configuration-in-firebase) //
 [3.8 Registering admins](#38-registering-admins) //
+[3.9 Admin register-fields Validation](#39-admin-register-fields-validation) //
+[3.10 Method to check if session was started](#310-method-to-check-if-session-was-started) //
 
 ---
 ---
@@ -2304,5 +2306,65 @@ If some of those is not entered, it won't register anything in the DB, and auth-
 ![second-register-1](images/03-bases/second-register-1.png)
 
 ![second-register-2](images/03-bases/second-register-2.png)
+
+---
+
+### 3.10 Method to check if session was started
+[Index](#index)
+
+- So far, we know the app will start in the loading-page, after three seconds it will go to 'Inicio' in Admin-page.
+- It can be seen in 'Carga.java'.
+  - Carga activity -> MainActivityAdmin activity
+
+
+What we'll do is:
+- After loading-page it will try to go to Inicio-admin.
+- A method will validate if there is a user available.
+  - In case there is a user.. Inicio-admin will be displayed.
+  - In case there is no user.. Inicio-client will be displayed.
+
+![auth-flow](images/03-bases/auth-flow.png)
+
+**MainActivityAdmin.java**
+
+- Declare instances of: 
+~~~
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+~~~
+
+- Inside of onCreate(), before the code for the default fragment.
+  - Initialize those instances.
+~~~
+    firebaseAuth = FirebaseAuth.getInstance();
+    firebaseUser = firebaseAuth.getCurrentUser();
+~~~
+
+- Declare the method that will check if session was started or not: `sessionStartedCheck()`
+- Ctrl+O -> write: onStart -> select the method: `onStart()`
+  - When the activity 'MainActivityAdmin' is executed, this method will be the first one to run.
+
+~~~
+    private void sessionStartedCheck() {
+        if(firebaseUser != null) {
+            // if admin started session
+            Toast.makeText(this, "Se ha iniciado sesión", Toast.LENGTH_SHORT).show();
+        } else {
+            // if session wasn't started, then it's a client
+            startActivity(new Intent(MainActivityAdmin.this, MainActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        sessionStartedCheck();
+        super.onStart();
+    }
+~~~
+
+**Testing**
+
+When the app is run, it will take us to Inicio-admin because in Firebase-DB there is a user registered.
 
 

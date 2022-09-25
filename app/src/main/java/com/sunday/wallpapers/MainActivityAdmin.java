@@ -7,11 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.sunday.wallpapers.AdminFragments.InicioAdmin;
 import com.sunday.wallpapers.AdminFragments.ListarAdmin;
 import com.sunday.wallpapers.AdminFragments.PerfilAdmin;
@@ -20,6 +23,8 @@ import com.sunday.wallpapers.AdminFragments.RegistrarAdmin;
 public class MainActivityAdmin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout; // declaration
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,10 @@ public class MainActivityAdmin extends AppCompatActivity implements NavigationVi
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        // Initialization
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         // default fragment
         if (savedInstanceState == null) {
@@ -79,5 +88,22 @@ public class MainActivityAdmin extends AppCompatActivity implements NavigationVi
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void sessionStartedCheck() {
+        if(firebaseUser != null) {
+            // if admin started session
+            Toast.makeText(this, "Se ha iniciado sesión", Toast.LENGTH_SHORT).show();
+        } else {
+            // if session wasn't started, then it's a client
+            startActivity(new Intent(MainActivityAdmin.this, MainActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        sessionStartedCheck();
+        super.onStart();
     }
 }
