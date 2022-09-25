@@ -32,6 +32,7 @@
 
 [4. CATEGORIES, FIREBASE STORAGE](#4-categories-firebase-storage)<br>
 - [4.1 Inicio-Admin: Categories interface](#41-inicio-admin-categories-interface) //
+- [4.2 Inicio-Admin: Categories functionality](#42-inicio-admin-categories-functionality) //
 
 ---
 ---
@@ -3036,3 +3037,138 @@ Images
 It works fine.
 
 ![inicio-1](images/04-categories/inicio-1.png)
+
+---
+
+### 4.2 Inicio-Admin: Categories functionality
+[Index](#index)
+
+**InicioAdmin.java**
+
+~~~
+public class InicioAdmin extends Fragment {
+
+    /* Declaration */
+    Button btnPeliculas, btnSeries, btnMusica, btnVideojuegos;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_inicio_admin, container, false);
+
+        /* Inicialization */
+        btnPeliculas = view.findViewById(R.id.btnPeliculas);
+        btnSeries = view.findViewById(R.id.btnSeries);
+        btnMusica = view.findViewById(R.id.btnMusica);
+        btnVideojuegos = view.findViewById(R.id.btnVideojuegos);
+
+        return view;
+    }
+}
+~~~
+
+- Let's create Activities for each category.
+
+- java: com.sunday.wallpapers -> New Package -> Name: AdminCategoriesActivities
+
+
+- Create activities: New Empty Activity
+  - PeliculasAdmin, SeriesAdmin, MusicaAdmin, VideojuegosAdmin
+- These are created too:
+  - activity_peliculas_admin, activity_series_admin, activity_musica_admin, activity_videojuegos_admin
+
+**InicioAdmin.java: Assign events to buttons**
+
+~~~
+public class InicioAdmin extends Fragment {
+
+    /* Declaration */
+    Button btnPeliculas, btnSeries, btnMusica, btnVideojuegos;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_inicio_admin, container, false);
+
+        /* Inicialization */
+        btnPeliculas = view.findViewById(R.id.btnPeliculas);
+        btnSeries = view.findViewById(R.id.btnSeries);
+        btnMusica = view.findViewById(R.id.btnMusica);
+        btnVideojuegos = view.findViewById(R.id.btnVideojuegos);
+
+        /* Assign event to buttons (lambda used) */
+        btnPeliculas.setOnClickListener(view1 -> {
+            startActivity( new Intent( getActivity(), PeliculasAdmin.class));
+        });
+
+        btnSeries.setOnClickListener(view1 -> {
+            startActivity( new Intent( getActivity(), SeriesAdmin.class));
+        });
+
+        btnMusica.setOnClickListener(view1 -> {
+            startActivity( new Intent( getActivity(), MusicaAdmin.class));
+        });
+
+        btnVideojuegos.setOnClickListener(view1 -> {
+            startActivity( new Intent( getActivity(), VideojuegosAdmin.class));
+        });
+
+        return view;
+    }
+}
+~~~
+
+**PeliculasAdmin.java**
+
+- It starts like this:
+
+~~~
+public class PeliculasAdmin extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_peliculas_admin);
+    }
+}
+~~~
+
+- Inside 'onCreate()' add this code.
+- And also add the method 'onSupportNavigateUp()':
+- Reuse the blocks of code in the other classes.
+
+~~~
+public class PeliculasAdmin extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_peliculas_admin);
+
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setTitle("Películas");
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+}
+~~~
+
+**AndroidManifest.xml**
+
+- Make sure the class is correctly declared:  
+`android:name=".AdminCategoriesActivities.PeliculasAdmin"`
+
+**Testing**
+
+It works fine.  
+- It starts in Inicio-Admin: Categories.
+- Click in 'Películas' button.
+- It goes to the activity for 'Películas', as it can be seen in the 'ActionBar'.
+- Arrow to go back.. it takes us to categories.
