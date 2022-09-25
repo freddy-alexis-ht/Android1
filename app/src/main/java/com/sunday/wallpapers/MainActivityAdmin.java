@@ -83,7 +83,7 @@ public class MainActivityAdmin extends AppCompatActivity implements NavigationVi
                         new ListarAdmin()).commit();
                 break;
             case R.id.SalirAdmin:
-            Toast.makeText(this, "Cerraste sesión", Toast.LENGTH_SHORT).show();
+                closeSession();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -99,6 +99,12 @@ public class MainActivityAdmin extends AppCompatActivity implements NavigationVi
             startActivity(new Intent(MainActivityAdmin.this, MainActivity.class));
             finish();
         }
+    }
+
+    private void closeSession() {
+        firebaseAuth.signOut(); // this line is enough to close session
+        startActivity(new Intent(MainActivityAdmin.this, MainActivity.class));
+        Toast.makeText(this, "Cerraste sesión exitosamente", Toast.LENGTH_SHORT).show();
     }
 
     @Override

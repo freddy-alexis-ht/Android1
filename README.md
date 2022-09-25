@@ -26,6 +26,7 @@
 [3.8 Registering admins](#38-registering-admins) //
 [3.9 Admin register-fields Validation](#39-admin-register-fields-validation) //
 [3.10 Method to check if session was started](#310-method-to-check-if-session-was-started) //
+[3.11 Method to close session](#311-method-to-close-session) //
 
 ---
 ---
@@ -2366,5 +2367,42 @@ What we'll do is:
 **Testing**
 
 When the app is run, it will take us to Inicio-admin because in Firebase-DB there is a user registered.
+
+---
+
+### 3.11 Method to close session
+[Index](#index)
+
+**MainActivityAdmin.java**
+
+When the admin signs out (close session), it should redirect to Inicio-Client.
+- After `sessionStartedCheck()` create the method `closeSession()`.
+
+~~~
+    private void closeSession() {
+        firebaseAuth.signOut(); // this line is enough to close session
+        startActivity(new Intent(MainActivityAdmin.this, MainActivity.class));
+        Toast.makeText(this, "Cerraste sesión exitosamente", Toast.LENGTH_SHORT).show();
+    }
+~~~
+
+- Now, in `onNavigationItemSelected()` -> switch -> case: SalirAdmin
+- Delete the Toast, and invoke the method 'closeSession()'.
+
+**Testing**
+
+Open the app for the first time:
+- It starts with the loading page.
+- sessionStartedCheck() is run and it verifies the 'firebaseUser' is different to null. 
+- It redirects to Inicio-Admin.
+- Close session and redirects to Inicio-Client.
+
+Close the app.
+
+Open the app again:
+- It starts with the loading page.
+- sessionStartedCheck() is run and it verifies the 'firebaseUser' is null.
+- It redirects to Inicio-Client.
+
 
 
