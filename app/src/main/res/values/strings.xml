@@ -43,5 +43,8 @@
     <string name="btnMusica">MÚSICA</string>
     <string name="btnVideojuegos">VIDEOJUEGOS</string>
 
+    <!-- MENU -->
+    <string name="Agregar">Agregar</string>
+    <string name="Vista">Vista</string>
 
 </resources>

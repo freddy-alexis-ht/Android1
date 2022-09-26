@@ -32,8 +32,9 @@
 
 [4. CATEGORIES, FIREBASE STORAGE](#4-categories-firebase-storage)<br>
 - [4.1 Inicio-Admin: Categories interface](#41-inicio-admin-categories-interface) //
-- [4.2 Inicio-Admin: Categories functionality](#42-inicio-admin-categories-functionality) //
-- [4.3 Customizing buttons](#43-customizing-buttons) //
+[4.2 Inicio-Admin: Categories functionality](#42-inicio-admin-categories-functionality) //
+[4.3 Customizing buttons](#43-customizing-buttons) //
+[4.4 ActionBar: Button to add items](#44-actionbar-button-to-add-items) //
 
 ---
 ---
@@ -3217,3 +3218,70 @@ It works fine.
 ![inicio-2](images/04-categories/inicio-2.png)
 
 Now buttons have effects when clicked.
+
+---
+
+### 4.4 ActionBar: Button to add items
+[Index](#index)
+
+This button is to add items to each category. It will only appear for admin sessions, not for client.
+
+**strings.xml**
+
+~~~
+    <!-- MENU -->
+    <string name="Agregar">Agregar</string>
+    <string name="Vista">Vista</string>
+~~~
+
+- drawable -> New Image Asset -> Write: add -> Name: agregar_ico
+
+
+- res: menu -> New Menu Resource File -> Name: menu_add
+
+**menu_add.xml**
+
+~~~
+    <?xml version="1.0" encoding="utf-8"?>
+    <menu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" >
+        <item
+            android:id="@+id/Agregar"
+            android:title="@string/Agregar"
+            android:icon="@drawable/agregar_ico"
+            app:showAsAction="ifRoom"/>
+    </menu>
+~~~
+
+**PeliculasAdmin.java**
+
+Add the following methods:
+
+~~~
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_add, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                Toast.makeText(this, "Agregar imagen", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+~~~
+
+Paste it in the others: SeriesAdmin.java, MusicaAdmin.java, VideojuegosAdmin.java
+
+**Testing**
+
+- When clicking in the '+', the Toast appears.
+
+![button-add](images/04-categories/button-add.png)
+
+
