@@ -33,6 +33,7 @@
 [4. CATEGORIES, FIREBASE STORAGE](#4-categories-firebase-storage)<br>
 - [4.1 Inicio-Admin: Categories interface](#41-inicio-admin-categories-interface) //
 - [4.2 Inicio-Admin: Categories functionality](#42-inicio-admin-categories-functionality) //
+- [4.3 Customizing buttons](#43-customizing-buttons) //
 
 ---
 ---
@@ -3172,3 +3173,47 @@ It works fine.
 - Click in 'Películas' button.
 - It goes to the activity for 'Películas', as it can be seen in the 'ActionBar'.
 - Arrow to go back.. it takes us to categories.
+
+---
+
+### 4.3 Customizing buttons
+[Index](#index)
+
+- drawable -> New Drawable Resource File -> Name: btn_customized
+
+**btn_customized.xml is created**
+- 
+- Replace 'selector' for 'ripple'.
+- Insert 'color' attribute to solve the possible error.
+- For 'shape', use the same color of the buttons in 'fragment_inicio_admin.xml'.
+
+~~~
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#000">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#04B4AE"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+
+</ripple>
+~~~
+
+**fragment_inicio_admin.xml**
+
+- Go to all buttons (4): Button -> background
+- Replace the color for '@drawable/btn_customized'.
+
+
+- Also in 'Button' make some changes for better presentation.
+- For the four buttons:
+`android:layout_width="match_parent"`
+- Only for buttons on the right:
+`android:layout_marginStart="5dp"`
+
+![inicio-2](images/04-categories/inicio-2.png)
+
+Now buttons have effects when clicked.

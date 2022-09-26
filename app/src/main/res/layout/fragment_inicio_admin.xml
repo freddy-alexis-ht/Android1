@@ -45,10 +45,10 @@
                 <Button
                     android:id="@+id/btnPeliculas"
                     android:text="@string/btnPeliculas"
-                    android:background="#04B4AE"
+                    android:background="@drawable/btn_customized"
                     android:textColor="#fff"
                     android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -69,10 +69,11 @@
                 <Button
                     android:id="@+id/btnSeries"
                     android:text="@string/btnSeries"
-                    android:background="#04B4AE"
+                    android:background="@drawable/btn_customized"
                     android:textColor="#fff"
                     android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -103,10 +104,10 @@
                 <Button
                     android:id="@+id/btnMusica"
                     android:text="@string/btnMusica"
-                    android:background="#04B4AE"
+                    android:background="@drawable/btn_customized"
                     android:textColor="#fff"
                     android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -127,10 +128,11 @@
                 <Button
                     android:id="@+id/btnVideojuegos"
                     android:text="@string/btnVideojuegos"
-                    android:background="#04B4AE"
+                    android:background="@drawable/btn_customized"
                     android:textColor="#fff"
                     android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
