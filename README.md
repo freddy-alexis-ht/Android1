@@ -3269,7 +3269,7 @@ Add the following methods:
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add:
+            case R.id.Agregar:
                 Toast.makeText(this, "Agregar imagen", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);

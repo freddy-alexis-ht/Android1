@@ -36,8 +36,9 @@ public class SeriesAdmin extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add:
+            case R.id.Agregar:
                 Toast.makeText(this, "Agregar imagen", Toast.LENGTH_SHORT).show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
